@@ -1,0 +1,304 @@
+/* app.css */
+@import '~font-awesome/css/font-awesome.css';
+
+.App {
+    display: flex;
+    min-height: 100vh;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    background-image: linear-gradient(79deg, #cd11e6b7, #f62237d3 48%, #ffb637cf);;
+  }
+  
+  .auth-form-container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  @media screen and (min-width: 600px) {
+    .auth-form-container {
+      padding: 5rem;
+      border: 1px solid white;
+      border-radius: 10px;
+      margin: 0.5rem;
+    }
+  }
+
+  .background-video {
+    object-fit: cover;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: -1;
+  }
+  
+  label {
+    text-align: left;
+    padding: 0.25rem 0;
+  }
+  
+  button {
+    border: none;
+    background-color: white;
+    padding: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    color: #cd11e6;
+  }
+  
+  .btn-success {
+    border-radius: 10px;
+  }
+  
+  .btn-signup {
+    background: none;
+    color: white;
+    text-decoration: underline;
+  }
+  
+  /* Additional CSS for the login input fields */
+  .form-input {
+    margin-bottom: 1rem; /* Adjust as needed for spacing */
+    position: relative;
+  }
+  
+  .form-input input {
+    border: 1px solid white;
+    border-radius: 10px;
+    padding: 10px;
+    width: 100%;
+    background: transparent;
+    color: white;
+  }
+  
+  /* Style for the Submit button */
+  form button {
+    border: none;
+    background-color: white;
+    padding: 10px;  
+    border-radius: 10px;
+    cursor: pointer;
+    color: #cd11e6;
+  }
+
+  .dashboard-container {
+    background-color: #f5f5f500;
+    padding: 20px;
+  }
+  
+  .dashboard-header {
+    background-color: transparent;
+    color: #fff;
+    padding: 10px;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  
+  
+  .dashboard-content {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  
+  .dashboard-card {
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    padding: 20px;
+    margin-right: 10px;
+    flex: 1;
+  }
+  
+  .dashboard-logout {
+    text-align: right;
+    margin-top: 20px;
+    position: absolute;
+    top: 10px;
+    right: 10px; /* Adjust the right value to control the distance from the right edge */
+    
+  }
+  
+  button {
+    background-color: transparent;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+/* Position and sizing of burger button */
+.bm-burger-button {
+  position: fixed;
+  width: 36px;
+  height: 30px;
+  left: 36px;
+  top: 40px;
+}
+
+/* Color/shape of burger icon bars */
+.bm-burger-bars {
+  background: #373a47;
+}
+
+/* Color/shape of burger icon bars on hover*/
+.bm-burger-bars-hover {
+  background: #a90000;
+}
+
+/* Position and sizing of clickable cross button */
+.bm-cross-button {
+  height: 24px;
+  width: 24px;
+}
+
+/* Color/shape of close button cross */
+.bm-cross {
+  background: #bdc3c7;
+}
+
+/*
+Sidebar wrapper styles
+Note: Beware of modifying this element as it can break the animations - you should not need to touch it in most cases
+*/
+.bm-menu-wrap {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* General sidebar styles */
+.bm-menu {
+  background: #373a47;
+  padding: 2.5em 1.5em 0;
+  font-size: 1.15em;
+}
+
+/* Morph shape necessary with bubble or elastic */
+.bm-morph-shape {
+  fill: #373a47;
+}
+
+/* Wrapper for item list */
+.bm-item-list { 
+  color: #b8b7ad;
+  padding: 0.8em;
+}
+
+/* Individual item */
+.bm-item {
+  display: inline-block;
+
+  color: #d1d1d1;
+  margin-bottom: 10px;
+  text-align: left;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.bm-item:hover {
+  color: #ffffff;
+}
+
+.bm-item:hover {
+  color: #ffffff;
+}
+
+
+/* Styling of overlay */
+.bm-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
+}
+  form button {
+    border: none;
+    background-color: white;
+    padding: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    color: #cd11e6;
+  }
+  .submit-button {
+    border: none;
+    background-color: lightblue;
+    padding: 10px 20px; /* Make the button a bit wider */
+    border-radius: 10px;
+    cursor: pointer;
+    color: darkblue; /* Set the button text color to dark blue */
+    margin-right: 15px;
+  }
+  
+  /* Style the "Register" button */
+  .register-button {
+    border: none;
+    background-color: lightblue;
+    padding: 10px 20px; /* Make the button a bit wider */
+    border-radius: 10px;
+    cursor: pointer;
+    color: darkblue; /* Set the button text color to dark blue */
+    margin-right: 15px;
+  }
+  .login-button {
+    border: none;
+    background-color: lightblue;
+    padding: 10px 20px; /* Make the button a bit wider */
+    border-radius: 10px;
+    cursor: pointer;
+    color: darkblue; /* Set the button text color to dark blue */
+        margin-right: 15px;
+  }
+  .project-page {
+    position: relative;
+    padding: 20px;
+  }
+  
+  .top-right-button {
+    position: relative;
+    bottom: -182px;
+    left: 147px;
+  }
+  
+  .create-project-button {
+    background-color: #007bff; /* Blue button color */
+    color: #fff; /* White text color */
+    padding: 10px 30px; /* Padding for the button */
+    border: none; /* No border */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Cursor style on hover */
+  }
+  
+  .create-project-button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+  }
+  .custom-select {
+    width: 100%;
+    padding: 1.5rem; /* Adjust as needed */
+    border: 1px solid #ccc; /* Add a border for better styling */
+    border-radius: 5px; /* Add rounded corners */
+    font-size: 16px; /* Set the font size */
+  }
+  .view-project-button {
+    background-color: #007bff; /* Set the button background color */
+    color: white; /* Set the text color to white */
+    border: none; /* Remove the border */
+    border-radius: 5px; /* Add rounded corners */
+    padding: 10px 20px; /* Adjust padding as needed */
+    cursor: pointer; /* Add a pointer cursor on hover */
+    font-size: 16px; /* Set the font size */
+    margin-top: 10px; /* Add some top margin for spacing */
+  }
+
+  .view-project-button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+  }
+  
