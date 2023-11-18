@@ -12,10 +12,15 @@ const MyProjects = () => {
   const [loading, setLoading] = useState(true);
   const [visible, setVisible] = useState(false);
   const [selectedTicket, setSelectedTicket] = useState(null);
+  const [sortCriteria, setSortCriteria] = useState('priority');
 
   const handleTicketClick = (ticket) => {
     setSelectedTicket(ticket);
   };
+
+  const handleSortChange = (criteria) => {
+    setSortCriteria(criteria);
+  }
 
   useEffect(() => {
     const getProjectName = () => {
@@ -50,7 +55,8 @@ const MyProjects = () => {
       })
         .then((response) => response.json())
         .then((data) => {
-          setTickets(data);
+          const sortedTickets = sortTickets(data, sortCriteria);
+          setTickets(sortedTickets);
           setLoading(false);
         })
         .catch((error) => {
@@ -60,12 +66,33 @@ const MyProjects = () => {
     };
 
     getTickets();
-  }, [projectID]);
+  }, [projectID, sortCriteria]);
+
+  const sortTickets = (data, criteria) => {
+    switch (criteria) {
+      case 'priority':
+        return data.sort((a, b) => a.Priority - b.Priority);
+      case 'date':
+        return data.sort((a, b) => new Date(a.Date_Opened) - new Date(b.Date_Opened));
+      case 'alphabetical':
+        return data.sort((a, b) => a.Ticket_Name.localeCompare(b.Ticket_Name));
+      default:
+        return data;
+    }
+  };
 
   return (
     <div>
       <Sidebar />
       <h1>{projectName}</h1> {/* Display the project name */}
+      <div>
+        <label>Sort by:</label>
+        <select onChange={(e) => handleSortChange(e.target.value)}>
+          <option value="priority">Priority</option>
+          <option value="date">Date</option>
+          <option value="alphabetical">Alphabetical</option>
+        </select>
+      </div>
       <button className="create-ticket" onClick={() => setVisible(true)}>
         Create Ticket
       </button>
