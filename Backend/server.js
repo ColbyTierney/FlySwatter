@@ -258,25 +258,38 @@ app.post('/removeInvite', (req, res) => {
 });
 
 app.post('/addusertoproject', (req, res) => {
-  const { projectName, projectId } = req.body;
+  const { projectId, username } = req.body;
   const admin = 0;
   const owner = 0;
 
-  if (!projectName || !projectId) {
-    return res.status(400).json({ error: 'Project name and project ID are required' });
+  if (!projectId || !username) {
+    return res.status(400).json({ error: 'Project ID and username are required' });
   }
 
-  // Insert a new project with provided project ID, name, admin, and owner set to 0
-  const insertSql = 'INSERT INTO Projects (Project_ID, Project_Name, Admin, Owner) VALUES (?, ?, ?, ?)';
-  db.query(insertSql, [projectId, projectName, admin, owner], (insertErr, insertData) => {
-    if (insertErr) {
-      return res.status(500).json(insertErr);
+  // Fetch ProjectName based on provided Project_ID
+  const selectSql = 'SELECT Project_Name FROM Projects WHERE Project_ID = ? AND Owner = 1';
+  db.query(selectSql, [projectId], (selectErr, selectData) => {
+    if (selectErr) {
+      return res.status(500).json(selectErr);
     }
 
-    return res.json({ message: 'New project created successfully', projectName, Project_ID: projectId, admin, owner });
+    if (selectData.length === 0) {
+      return res.status(404).json({ error: 'Project not found for this Project_ID' });
+    }
+
+    const projectName = selectData[0].Project_Name;
+
+    // Insert a new project with provided Project_ID, fetched ProjectName, username, admin, and owner set to 0
+    const insertSql = 'INSERT INTO Projects (Project_ID, Usernames, Project_Name, Admin, Owner) VALUES (?, ?, ?, ?, ?)';
+    db.query(insertSql, [projectId, username, projectName, admin, owner], (insertErr, insertData) => {
+      if (insertErr) {
+        return res.status(500).json(insertErr);
+      }
+
+      return res.json({ message: 'New project created successfully', projectName, Project_ID: projectId, admin, owner });
+    });
   });
 });
-
 
 
 app.listen(8081, () => {
