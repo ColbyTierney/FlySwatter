@@ -159,8 +159,8 @@ app.post('/createProject', (req, res) => {
     const newProjectId = maxProjectId + 1;
 
     // Insert the new project into the database with the new Project_ID
-    const insertSql = 'INSERT INTO Projects (Project_ID, Usernames, Project_Name) VALUES (?, ?, ?)';
-    db.query(insertSql, [newProjectId, username, projectName], (insertErr, insertData) => {
+    const insertSql = 'INSERT INTO Projects (Project_ID, Usernames, Project_Name, Owner, Admin) VALUES (?, ?, ?, ?, ?)';
+    db.query(insertSql, [newProjectId, username, projectName, 1, 1], (insertErr, insertData) => {
       if (insertErr) {
         return res.status(500).json(insertErr);
       }
@@ -168,6 +168,7 @@ app.post('/createProject', (req, res) => {
     });
   });
 });
+
 app.post('/getProjectName', (req, res) => {
   const { projectID } = req.body;
 
@@ -188,6 +189,94 @@ app.post('/getProjectName', (req, res) => {
     return res.json({ projectName });
   });
 });
+
+app.post('/addInvite', (req, res) => {
+  const { sender, receiver, projectId } = req.body;
+
+  if (!sender || !receiver || !projectId) {
+    return res.status(400).json({ error: 'Sender, receiver, and projectID are required' });
+  }
+
+  // Check if the invite already exists for the given sender, receiver, and projectID
+  const checkSql = 'SELECT * FROM Invites WHERE Sender = ? AND Receiver = ? AND ProjectID = ?';
+  db.query(checkSql, [sender, receiver, projectId], (checkErr, checkData) => {
+    if (checkErr) {
+      return res.status(500).json(checkErr);
+    }
+
+    if (checkData.length > 0) {
+      return res.status(400).json({ error: 'Invite already exists for this sender, receiver, and projectID' });
+    }
+
+    // Insert the new invite into the Invites table
+    const insertSql = 'INSERT INTO Invites (Sender, Receiver, ProjectID) VALUES (?, ?, ?)';
+    db.query(insertSql, [sender, receiver, projectId], (insertErr, insertData) => {
+      if (insertErr) {
+        return res.status(500).json(insertErr);
+      }
+
+      return res.json({ message: 'Invite added successfully', sender, receiver, projectId });
+    });
+  });
+});
+
+app.post('/getInvites', (req, res) => {
+  const { receiver } = req.body;
+
+  if (!receiver) {
+    return res.status(400).json({ error: 'Receiver username is required' });
+  }
+
+  // Retrieve invites for the specified receiver
+  const sql = 'SELECT * FROM Invites WHERE Receiver = ?';
+  db.query(sql, [receiver], (err, data) => {
+    if (err) {
+      return res.status(500).json(err);
+    }
+    return res.json(data);
+  });
+});
+
+app.post('/removeInvite', (req, res) => {
+  const { sender, receiver, projectId } = req.body;
+
+  if (!sender || !receiver || !projectId) {
+    return res.status(400).json({ error: 'Sender, receiver, and projectID are required' });
+  }
+
+  // Delete the invite for the specified sender, receiver, and projectID
+  const deleteSql = 'DELETE FROM Invites WHERE Sender = ? AND Receiver = ? AND ProjectID = ?';
+  db.query(deleteSql, [sender, receiver, projectId], (err, result) => {
+    if (err) {
+      return res.status(500).json(err);
+    }
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ error: 'Invite not found for this sender, receiver, and projectID' });
+    }
+    return res.json({ message: 'Invite removed successfully', sender, receiver, projectId });
+  });
+});
+
+app.post('/addusertoproject', (req, res) => {
+  const { projectName, projectId } = req.body;
+  const admin = 0;
+  const owner = 0;
+
+  if (!projectName || !projectId) {
+    return res.status(400).json({ error: 'Project name and project ID are required' });
+  }
+
+  // Insert a new project with provided project ID, name, admin, and owner set to 0
+  const insertSql = 'INSERT INTO Projects (Project_ID, Project_Name, Admin, Owner) VALUES (?, ?, ?, ?)';
+  db.query(insertSql, [projectId, projectName, admin, owner], (insertErr, insertData) => {
+    if (insertErr) {
+      return res.status(500).json(insertErr);
+    }
+
+    return res.json({ message: 'New project created successfully', projectName, Project_ID: projectId, admin, owner });
+  });
+});
+
 
 
 app.listen(8081, () => {
