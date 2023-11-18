@@ -269,9 +269,11 @@ Note: Beware of modifying this element as it can break the animations - you shou
   }
   
   .create-project-button {
+    position: fixed;
+    bottom: 269px;
     background-color: #007bff; /* Blue button color */
     color: #fff; /* White text color */
-    padding: 10px 30px; /* Padding for the button */
+    padding: 11px 30px; /* Padding for the button */
     border: none; /* No border */
     border-radius: 5px; /* Rounded corners */
     cursor: pointer; /* Cursor style on hover */
@@ -287,7 +289,7 @@ Note: Beware of modifying this element as it can break the animations - you shou
     border-radius: 5px; /* Add rounded corners */
     font-size: 16px; /* Set the font size */
   }
-  .view-project-button {
+  .view-project-button { 
     background-color: #007bff; /* Set the button background color */
     color: white; /* Set the text color to white */
     border: none; /* Remove the border */
