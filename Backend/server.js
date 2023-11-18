@@ -238,22 +238,22 @@ app.post('/getInvites', (req, res) => {
 });
 
 app.post('/removeInvite', (req, res) => {
-  const { sender, receiver, projectId } = req.body;
+  const { inviteId } = req.body;
 
-  if (!sender || !receiver || !projectId) {
-    return res.status(400).json({ error: 'Sender, receiver, and projectID are required' });
+  if (!inviteId) {
+    return res.status(400).json({ error: 'InviteID is required' });
   }
 
-  // Delete the invite for the specified sender, receiver, and projectID
-  const deleteSql = 'DELETE FROM Invites WHERE Sender = ? AND Receiver = ? AND ProjectID = ?';
-  db.query(deleteSql, [sender, receiver, projectId], (err, result) => {
+  // Delete the invite based on InviteID
+  const deleteSql = 'DELETE FROM Invites WHERE InviteID = ?';
+  db.query(deleteSql, [inviteId], (err, result) => {
     if (err) {
       return res.status(500).json(err);
     }
     if (result.affectedRows === 0) {
-      return res.status(404).json({ error: 'Invite not found for this sender, receiver, and projectID' });
+      return res.status(404).json({ error: 'Invite not found for this InviteID' });
     }
-    return res.json({ message: 'Invite removed successfully', sender, receiver, projectId });
+    return res.json({ message: 'Invite removed successfully', inviteId });
   });
 });
 
