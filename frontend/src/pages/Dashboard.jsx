@@ -47,7 +47,7 @@ function Dashboard() {
           <ul>
             {invites.map((invite, index) => (
               <li key={index}>
-                Sender: {invite.Sender} Project ID: {invite.ProjectID}
+                Sender: {invite.Sender}, Project ID: {invite.ProjectID}
               </li>
             ))}
           </ul>
