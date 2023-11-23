@@ -15,6 +15,9 @@
   }
 
   .create-ticket {
+    position: relative;
+    left: -30px;
+    bottom: 40px;
     background-color: #007bff; /* Blue button color */
     color: #fff; /* White text color */
     padding: 10px 30px; /* Padding for the button */
@@ -26,3 +29,22 @@
   .create-ticket:hover {
     background-color: #0056b3; /* Darker blue on hover */
   }
+
+  .send-invite-button {
+    position: relative;
+    background-color: #060b11; /* Blue button color */
+    color: #fff; /* White text color */
+    padding: 10px 30px; /* Padding for the button */
+    border: none; /* No border */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Cursor style on hover */
+    left: 400px;
+    bottom: 180px;
+  }
+
+  .sort-by {
+    position: relative;
+    bottom: -50px;
+  }
+
+

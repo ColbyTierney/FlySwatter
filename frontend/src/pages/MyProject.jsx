@@ -118,8 +118,8 @@ const MyProjects = () => {
       <Sidebar />
       <h1>{projectName}</h1> {/* Display the project name */}
       <div>
-        <label>Sort by:</label>
-        <select onChange={(e) => handleSortChange(e.target.value)}>
+        <label className="sort-by">Sort by:</label>
+        <select className="sort-by" onChange={(e) => handleSortChange(e.target.value)}>
           <option value="priority">Priority</option>
           <option value="date">Date</option>
           <option value="alphabetical">Alphabetical</option>
@@ -132,17 +132,27 @@ const MyProjects = () => {
         {Createticket}
       </Popup>
 
-      <div>
-        <h2>Send Invite:</h2>
+      <Popup
+        trigger={<button className="send-invite-button">Send Invite</button>}
+        modal
+        nested
+      >
+        {(close) => (
+        <div className="send-invite-popup">
+        <h2 className="send-invite">Send Invite:</h2>
         <label>Receiver:</label>
         <input
           type="text"
           name="receiver"
           value={inviteDetails.receiver}
           onChange={handleInviteInputChange}
-          />
-          <button onClick={sendInvite}>Send Invite</button>
-      </div>
+        />
+        <button onClick={() => { sendInvite(); close(); }}>Send Invite</button>
+        <button onClick={close}>Close</button>
+        </div>
+  )}
+</Popup>
+
       {loading ? (
         <p>Loading tickets...</p>
       ) : tickets === null ? (
