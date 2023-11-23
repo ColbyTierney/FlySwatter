@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Sidebar from '../components/Sidebar';
 import { useProject } from '../ProjectContext';
+import { useUser } from '../UserContext';
 import Popup from 'reactjs-popup';
 import Createticket from './CreateTicket';
 import './MyProject.css';
@@ -13,10 +14,11 @@ const MyProjects = () => {
   const [visible, setVisible] = useState(false);
   const [selectedTicket, setSelectedTicket] = useState(null);
   const [sortCriteria, setSortCriteria] = useState('priority');
+  const { username } = useUser();
   const [inviteDetails, setInviteDetails] = useState({
-    sender: '',
+    sender: username,
     receiver: '',
-    pojectId: projectID,
+    projectId: projectID,
   });
 
   const handleTicketClick = (ticket) => {
@@ -139,7 +141,7 @@ const MyProjects = () => {
           value={inviteDetails.receiver}
           onChange={handleInviteInputChange}
           />
-          <button onCLick={sendInvite}>Send Invite</button>
+          <button onClick={sendInvite}>Send Invite</button>
       </div>
       {loading ? (
         <p>Loading tickets...</p>
