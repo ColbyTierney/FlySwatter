@@ -212,6 +212,10 @@ app.post('/addInvite', (req, res) => {
     const insertSql = 'INSERT INTO Invites (Sender, Receiver, ProjectID) VALUES (?, ?, ?)';
     db.query(insertSql, [sender, receiver, projectId], (insertErr, insertData) => {
       if (insertErr) {
+        // Assuming a duplicate entry error code is 1062 for MySQL, handle the duplicate entry error
+        if (insertErr.code === 'ER_DUP_ENTRY') {
+          return res.status(400).json({ error: 'Duplicate entry: Invite already exists' });
+        }
         return res.status(500).json(insertErr);
       }
 
@@ -219,6 +223,7 @@ app.post('/addInvite', (req, res) => {
     });
   });
 });
+
 
 app.post('/getInvites', (req, res) => {
   const { receiver } = req.body;
