@@ -266,29 +266,6 @@ app.post('/addusertoproject', (req, res) => {
   if (!projectId || !username) {
     return res.status(400).json({ error: 'Project ID and username are required' });
   }
-
-  app.post('/checkUserInProject', (req, res) => {
-    const { username, projectId } = req.body;
-  
-    if (!username || !projectId) {
-      return res.status(400).json({ error: 'Username and Project ID are required' });
-    }
-
-    const sql = 'SELECT * FROM Projects WHERE Usernames = ? AND Project_ID = ?';
-    db.query(sql, [username, projectId], (err, data) => {
-      if (err) {
-        return res.status(500).json(err);
-      }
-  
-      if (data.length === 0) {
-        return res.json({ existsInProject: false });
-      }
-  
-      return res.json({ existsInProject: true });
-    });
-  });
-  
-
   // Fetch ProjectName based on provided Project_ID
   const selectSql = 'SELECT Project_Name FROM Projects WHERE Project_ID = ? AND Owner = 1';
   db.query(selectSql, [projectId], (selectErr, selectData) => {
@@ -311,6 +288,29 @@ app.post('/addusertoproject', (req, res) => {
 
       return res.json({ message: 'New project created successfully', projectName, Project_ID: projectId, admin, owner });
     });
+  });
+});
+
+
+app.post('/checkUserInProject', (req, res) => {
+  const { username, projectId } = req.body;
+
+  if (!username || !projectId) {
+    return res.status(400).json({ error: 'Username and Project ID are required' });
+  }
+
+  // Check if the username exists in the specified project
+  const sql = 'SELECT * FROM Projects WHERE Usernames = ? AND Project_ID = ?';
+  db.query(sql, [username, projectId], (err, data) => {
+    if (err) {
+      return res.status(500).json(err);
+    }
+
+    if (data.length === 0) {
+      return res.json({ existsInProject: false });
+    }
+
+    return res.json({ existsInProject: true });
   });
 });
 
