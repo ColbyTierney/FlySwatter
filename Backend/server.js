@@ -190,39 +190,39 @@ app.post('/getProjectName', (req, res) => {
   });
 });
 
-app.post('/addInvite', (req, res) => {
-  const { sender, receiver, projectId } = req.body;
+app.post('/createInvite', (req, res) => {
+  const { senderProjectId, receiver, message } = req.body;
 
-  if (!sender || !receiver || !projectId) {
-    return res.status(400).json({ error: 'Sender, receiver, and projectID are required' });
+  if (!senderProjectId || !receiver) {
+    return res.status(400).json({ error: 'Sender_ProjectID and Receiver are required' });
   }
 
-  // Check if the invite already exists for the given sender, receiver, and projectID
-  const checkSql = 'SELECT * FROM Invites WHERE Sender = ? AND Receiver = ? AND ProjectID = ?';
-  db.query(checkSql, [sender, receiver, projectId], (checkErr, checkData) => {
-    if (checkErr) {
-      return res.status(500).json(checkErr);
+  // Generate a new unique InviteID by finding the maximum existing InviteID and adding 1
+  const getMaxInviteIdSql = 'SELECT MAX(InviteID) AS maxInviteId FROM Invites';
+  db.query(getMaxInviteIdSql, (maxIdErr, maxIdResult) => {
+    if (maxIdErr) {
+      return res.status(500).json(maxIdErr);
     }
+    const maxInviteId = maxIdResult[0].maxInviteId || 0;
+    const newInviteId = maxInviteId + 1;
 
-    if (checkData.length > 0) {
-      return res.status(400).json({ error: 'Invite already exists for this sender, receiver, and projectID' });
-    }
-
-    // Insert the new invite into the Invites table
-    const insertSql = 'INSERT INTO Invites (Sender, Receiver, ProjectID) VALUES (?, ?, ?)';
-    db.query(insertSql, [sender, receiver, projectId], (insertErr, insertData) => {
+    // Insert the new invite into the database
+    const insertInviteSql = 'INSERT INTO Invites (InviteID, Sender_ProjectID, Receiver, Message) VALUES (?, ?, ?, ?)';
+    db.query(insertInviteSql, [newInviteId, senderProjectId, receiver, message], (insertErr, insertData) => {
       if (insertErr) {
-        // Assuming a duplicate entry error code is 1062 for MySQL, handle the duplicate entry error
-        if (insertErr.code === 'ER_DUP_ENTRY') {
-          return res.status(400).json({ error: 'Duplicate entry: Invite already exists' });
-        }
         return res.status(500).json(insertErr);
       }
-
-      return res.json({ message: 'Invite added successfully', sender, receiver, projectId });
+      return res.json({
+        message: 'Invite sent successfully',
+        InviteID: newInviteId,
+        Sender_ProjectID: senderProjectId,
+        Receiver: receiver
+      });
     });
   });
 });
+
+
 
 
 app.post('/getInvites', (req, res) => {
