@@ -13,6 +13,11 @@ const MyProjects = () => {
   const [visible, setVisible] = useState(false);
   const [selectedTicket, setSelectedTicket] = useState(null);
   const [sortCriteria, setSortCriteria] = useState('priority');
+  const [inviteDetails, setInviteDetails] = useState({
+    sender: '',
+    receiver: '',
+    pojectId: projectID,
+  });
 
   const handleTicketClick = (ticket) => {
     setSelectedTicket(ticket);
@@ -21,6 +26,31 @@ const MyProjects = () => {
   const handleSortChange = (criteria) => {
     setSortCriteria(criteria);
   }
+
+  const handleInviteInputChange = (e) => {
+    const { name, value } = e.target;
+    setInviteDetails((prevDetails) => ({
+      ...prevDetails,
+      [name]: value,
+    }));
+  };
+
+  const sendInvite = () => {
+    fetch('http://localhost:8081/createInvite', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(inviteDetails),
+    })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log('Invite sent successfully:', data);
+    })
+    .catch((error) => {
+      console.error('Error sending invite', error);
+    });
+  };
 
   useEffect(() => {
     const getProjectName = () => {
@@ -99,6 +129,18 @@ const MyProjects = () => {
       <Popup open={visible} onClose={() => setVisible(false)}>
         {Createticket}
       </Popup>
+
+      <div>
+        <h2>Send Invite:</h2>
+        <label>Receiver:</label>
+        <input
+          type="text"
+          name="receiver"
+          value={inviteDetails.receiver}
+          onChange={handleInviteInputChange}
+          />
+          <button onCLick={sendInvite}>Send Invite</button>
+      </div>
       {loading ? (
         <p>Loading tickets...</p>
       ) : tickets === null ? (
