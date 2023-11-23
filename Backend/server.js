@@ -191,10 +191,10 @@ app.post('/getProjectName', (req, res) => {
 });
 
 app.post('/createInvite', (req, res) => {
-  const { senderProjectId, receiver, message } = req.body;
+  const { sender, projectId, receiver } = req.body;
 
-  if (!senderProjectId || !receiver) {
-    return res.status(400).json({ error: 'Sender_ProjectID and Receiver are required' });
+  if (!sender || !projectId || !receiver) {
+    return res.status(400).json({ error: 'Sender, ProjectID, and Receiver are required' });
   }
 
   // Generate a new unique InviteID by finding the maximum existing InviteID and adding 1
@@ -206,21 +206,17 @@ app.post('/createInvite', (req, res) => {
     const maxInviteId = maxIdResult[0].maxInviteId || 0;
     const newInviteId = maxInviteId + 1;
 
-    // Insert the new invite into the database
-    const insertInviteSql = 'INSERT INTO Invites (InviteID, Sender_ProjectID, Receiver, Message) VALUES (?, ?, ?, ?)';
-    db.query(insertInviteSql, [newInviteId, senderProjectId, receiver, message], (insertErr, insertData) => {
+    // Insert a new invite into the database with the new InviteID, Sender, ProjectID, and Receiver
+    const insertSql = 'INSERT INTO Invites (InviteID, Sender, ProjectID, Receiver) VALUES (?, ?, ?, ?)';
+    db.query(insertSql, [newInviteId, sender, projectId, receiver], (insertErr, insertData) => {
       if (insertErr) {
         return res.status(500).json(insertErr);
       }
-      return res.json({
-        message: 'Invite sent successfully',
-        InviteID: newInviteId,
-        Sender_ProjectID: senderProjectId,
-        Receiver: receiver
-      });
+      return res.json({ message: 'Invite sent successfully', Sender: sender, ProjectID: projectId, Receiver: receiver, InviteID: newInviteId });
     });
   });
 });
+
 
 
 
