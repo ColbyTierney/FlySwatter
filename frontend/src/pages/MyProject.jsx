@@ -15,6 +15,7 @@ const MyProjects = () => {
   const [selectedTicket, setSelectedTicket] = useState(null);
   const [sortCriteria, setSortCriteria] = useState('priority');
   const { username } = useUser();
+  const [inviteError, setInviteError] = useState(null);
   const [inviteDetails, setInviteDetails] = useState({
     sender: username,
     receiver: '',
@@ -37,7 +38,9 @@ const MyProjects = () => {
     }));
   };
 
-  const sendInvite = () => {
+  const sendInvite = (close) => {
+    setInviteError(null);
+
     fetch('http://localhost:8081/checkUserInProject', {
       method: 'POST',
       headers: {
@@ -53,6 +56,7 @@ const MyProjects = () => {
       if (data.existsInProject)
       {
         console.log('User is already in the project');
+        setInviteError('User is already in the project');
       }
       else
       {
@@ -80,6 +84,7 @@ const MyProjects = () => {
         .then((response) => response.json())
         .then((d) => {
         console.log('Invite sent successfully:', d);
+        close();
         })
         .catch((error) => {
         console.error('Error sending invite', error);
@@ -88,6 +93,7 @@ const MyProjects = () => {
       else
       {
         console.error('User does not exist');
+        setInviteError('User does not exist');
       }
     });
       }
@@ -187,7 +193,8 @@ const MyProjects = () => {
           value={inviteDetails.receiver}
           onChange={handleInviteInputChange}
         />
-        <button onClick={() => { sendInvite(); close(); }}>Send Invite</button>
+        {inviteError && <div className="error-message">{inviteError}</div>}
+        <button onClick={() => { sendInvite(close); }}>Send Invite</button>
         <button className="send-invite-close-button"onClick={close}>Close</button>
         </div>
   )}

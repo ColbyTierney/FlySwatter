@@ -47,4 +47,9 @@
     bottom: -50px;
   }
 
+  .error-message {
+    color: red;
+    margin-top: 5px;
+  }
+
 
