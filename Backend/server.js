@@ -343,6 +343,20 @@ app.post('/isAdminOrOwner', (req, res) => {
   });
 });
 
+app.post('/getUsers', (req, res) => {
+  const { ProjectId } = req.body;
+
+  if (!ProjectId) {
+    return res.status(400).json({ error: 'Project_ID is required' });
+  }
+  const sql = 'SELECT Usernames FROM Project WHERE Project_ID = ?';
+  db.query(sql, [ProjectId], (err, data) => {
+    if (err) {
+      return res.status(500).json(err);
+    }
+    return res.json(data);
+  });
+});
 // Days without malding on the project: 0
 
 app.listen(8081, () => {
