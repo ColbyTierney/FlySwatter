@@ -390,7 +390,7 @@ app.post('/promoteUser', (req, res) => {
     return res.status(400).json({ error: 'Username and ProjectId are required' });
   }
 
-  const updateSql = 'UPDATE Projects SET Admin = 1 WHERE Usernames = ? AND ProjectID = ?';
+  const updateSql = 'UPDATE Projects SET Admin = 1 WHERE Usernames = ? AND Project_ID = ?';
   db.query(updateSql, [username, projectId], (updateErr, updateResult) => {
     if (updateErr) {
       return res.status(500).json(updateErr);
@@ -411,7 +411,7 @@ app.post('/demoteUser', (req, res) => {
     return res.status(400).json({ error: 'Username and ProjectId are required' });
   }
 
-  const updateSql = 'UPDATE Projects SET Admin = 0 WHERE Usernames = ? AND ProjectID = ?';
+  const updateSql = 'UPDATE Projects SET Admin = 0 WHERE Usernames = ? AND Project_ID = ?';
   db.query(updateSql, [username, projectId], (updateErr, updateResult) => {
     if (updateErr) {
       return res.status(500).json(updateErr);

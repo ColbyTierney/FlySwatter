@@ -91,9 +91,10 @@ const MyProjects = () => {
       console.error('Error fetching project members', error);
     });
   };
+  
 
-  const handlePromoteDemote = (member, action) => {
-    fetch(`http://localhost:8081/${action}User`, {
+  const handleDemote = (member) => {
+    fetch('http://localhost:8081/demoteUser', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -105,13 +106,35 @@ const MyProjects = () => {
     })
     .then((response) => response.json())
     .then((data) => {
-      console.log(`User ${action}d successfully:`, data);
+      console.log('User demoted successfully:', data);
       fetchProjectMembers();
     })
     .catch((error) => {
-      console.error('Error ${action}ing user:', error);
+      console.error('Error demoting user:', error);
     });
   };
+
+  const handlePromote = (member) => {
+    fetch('http://localhost:8081/promoteUser', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        username: member,
+        projectId: projectID,
+      }),
+    })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log('User promoted successfully:', data);
+      fetchProjectMembers();
+    })
+    .catch((error) => {
+      console.error('Error promoting user:', error);
+    });
+  };
+
 
   const checkAdminStatus = async (username, projectID) => {
     try {
@@ -122,7 +145,7 @@ const MyProjects = () => {
         },
         body: JSON.stringify({
           username: username,
-          projectId: projectID
+          projectId: projectID,
         }),
       });
 
@@ -290,12 +313,12 @@ const MyProjects = () => {
                 {isAdminOrOwner && member !== username && (
                   <>
                   {checkAdminStatus(member, projectID) ? (
-                    <button onClick={() => handlePromoteDemote(member, 'promote')}>
-                      Promote
+                    <button onClick={() => handleDemote(member)}>
+                      Demote
                     </button>
                   ) : (
-                    <button onClick={() => handlePromoteDemote(member, 'demote')}>
-                      Demote
+                    <button onClick={() => handlePromote(member)}>
+                      Promote
                     </button>
                     )}
                   </>
