@@ -100,7 +100,7 @@ const MyProjects = () => {
       },
       body: JSON.stringify({
         username: member,
-        projectId: ProjectID,
+        projectId: projectID,
       }),
     })
     .then((response) => response.json())

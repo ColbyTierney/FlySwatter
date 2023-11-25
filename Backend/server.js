@@ -384,14 +384,14 @@ app.post('/getUsers', (req, res) => {
 // Days without malding on the project: 0
 
 app.post('/promoteUser', (req, res) => {
-  const { username, ProjectId } = req.body;
+  const { username, projectId } = req.body;
 
-  if (!username || !ProjectId) {
+  if (!username || !projectId) {
     return res.status(400).json({ error: 'Username and ProjectId are required' });
   }
 
   const updateSql = 'UPDATE Projects SET Admin = 1 WHERE Usernames = ? AND ProjectID = ?';
-  db.query(updateSql, [username, ProjectId], (updateErr, updateResult) => {
+  db.query(updateSql, [username, projectId], (updateErr, updateResult) => {
     if (updateErr) {
       return res.status(500).json(updateErr);
     }
@@ -405,14 +405,14 @@ app.post('/promoteUser', (req, res) => {
 });
 
 app.post('/demoteUser', (req, res) => {
-  const { username, ProjectId } = req.body;
+  const { username, projectId } = req.body;
 
   if (!username || !ProjectId) {
     return res.status(400).json({ error: 'Username and ProjectId are required' });
   }
 
   const updateSql = 'UPDATE Projects SET Admin = 0 WHERE Usernames = ? AND ProjectID = ?';
-  db.query(updateSql, [username, ProjectId], (updateErr, updateResult) => {
+  db.query(updateSql, [username, projectId], (updateErr, updateResult) => {
     if (updateErr) {
       return res.status(500).json(updateErr);
     }
