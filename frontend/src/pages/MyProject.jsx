@@ -15,6 +15,7 @@ const MyProjects = () => {
   const [selectedTicket, setSelectedTicket] = useState(null);
   const [sortCriteria, setSortCriteria] = useState('priority');
   const { username } = useUser();
+  const [isAdminOrOwner, setIsAdminOrOwner] = useState(false);
   const [inviteError, setInviteError] = useState(null);
   const [inviteDetails, setInviteDetails] = useState({
     sender: username,
@@ -22,33 +23,36 @@ const MyProjects = () => {
     projectId: projectID,
   });
 
-  const checkIsAdminOrOwner = async () => {
-    try {
-      const response = await fetch('http://localhost:8081/isAdminOrOwner', {
-        method: 'POST',
-        headers: {
-          'Content-Type' : 'application/json',
-        },
-        body: JSON.stringify({
-          username: username,
-          projectId: projectID,
-        }),
-      });
-
-      if (!response.ok)
-      {
-        console.log('Admin/Owner check failed');
-        throw new Error('Failed to check admin/owner status');
+  useEffect(() => {
+    const checkAdminOrOwner = async () => {
+      try {
+        const response = await fetch('http://localhost:8081/isAdminOrOwner', {
+          method: 'POST',
+          headers: {
+            'Content-Type' : 'application/json',
+          },
+          body: JSON.stringify({
+            username: username,
+            projectId: projectID,
+          }),
+        });
+  
+        if (!response.ok)
+        {
+          console.log('Admin/Owner check failed');
+          throw new Error('Failed to check admin/owner status');
+        }
+  
+        const data = await response.json();
+        console.log(data);
+        setIsAdminOrOwner(data.isAdminOrOwner);
+      } catch (error) {
+        console.error('Error checking admin/owner status:', error);
       }
+    };
 
-      const data = await response.json();
-      console.log(data);
-      return data.isAdminOrOwner;
-    } catch (error) {
-      console.error('Error checking admin/owner status:', error);
-      return false;
-    }
-  }
+    checkAdminOrOwner()
+  }, [username, projectID]);
 
   const handleTicketClick = (ticket) => {
     setSelectedTicket(ticket);
@@ -207,7 +211,7 @@ const MyProjects = () => {
       </Popup>
 
       <Popup
-        trigger={checkIsAdminOrOwner() && <button className="send-invite-button">Send Invite</button>}
+        trigger={isAdminOrOwner && <button className="send-invite-button">Send Invite</button>}
         modal
         nested
       >
@@ -225,7 +229,7 @@ const MyProjects = () => {
         <button onClick={() => { sendInvite(close); }}>Send Invite</button>
         <button className="send-invite-close-button"onClick={close}>Close</button>
         </div>
-  )}
+        )}
 </Popup>
 
       {loading ? (
