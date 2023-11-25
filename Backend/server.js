@@ -320,6 +320,26 @@ app.post('/checkUserExists', (req, res) => {
   });
 });
 
+app.post('/isAdminOrOwner', (req, res) => {
+  const { username, projectId } = req.body;
+
+  if (!username || !projectId) {
+    return res.status(400).json({ error: 'Username and Project_ID are required' });
+  }
+  const getRoleSql = 'SELECT Owner, Admin FROM Projects WHERE Project_ID = ? AND Usernames = ?';
+  db.query(getRoleSql, [projectId, username], (roleErr, roleResult) => {
+    if (roleErr) {
+      return res.status(500).json(roleErr);
+    }
+    if (roleResult.length === 0) {
+      return res.json({ isAdminOrOwner: false });
+    }
+    const { Owner, Admin } = roleResult[0];
+    const isAdminOrOwner = Owner === 1 || Admin === 1;
+    return res.json({ isAdminOrOwner });
+  });
+});
+
 
 
 app.listen(8081, () => {
