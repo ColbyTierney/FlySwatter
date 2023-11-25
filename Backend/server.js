@@ -349,7 +349,7 @@ app.post('/getUsers', (req, res) => {
   if (!ProjectId) {
     return res.status(400).json({ error: 'Project_ID is required' });
   }
-  const sql = 'SELECT Usernames FROM Project WHERE Project_ID = ?';
+  const sql = 'SELECT Usernames FROM Projects WHERE Project_ID = ?';
   db.query(sql, [ProjectId], (err, data) => {
     if (err) {
       return res.status(500).json(err);
@@ -358,6 +358,50 @@ app.post('/getUsers', (req, res) => {
   });
 });
 // Days without malding on the project: 0
+
+app.post('/promoteUser', (req, res) => {
+  const { username, ProjectId } = req.body;
+
+  if (!username || !ProjectId) {
+    return res.status(400).json({ error: 'Username and ProjectId are required' });
+  }
+
+  const updateSql = 'UPDATE Projects SET Admin = 1 WHERE Usernames = ? AND ProjectID = ?';
+  db.query(updateSql, [username, ProjectId], (updateErr, updateResult) => {
+    if (updateErr) {
+      return res.status(500).json(updateErr);
+    }
+
+    if (updateResult.affectedRows === 0) {
+      return res.status(404).json({ error: 'No project found for the given username and ProjectId' });
+    }
+
+    return res.json({ message: 'Admin status updated successfully for username: ' + username });
+  });
+});
+
+app.post('/isOwner', (req, res) => {
+  const { username, projectId } = req.body;
+
+  if (!username || !projectId) {
+    return res.status(400).json({ error: 'Username and Project_ID are required' });
+  }
+  const getRoleSql = 'SELECT Owner FROM Projects WHERE Project_ID = ? AND Usernames = ?';
+  db.query(getRoleSql, [projectId, username], (roleErr, roleResult) => {
+    if (roleErr) {
+      return res.status(500).json(roleErr);
+    }
+    if (roleResult.length === 0) {
+      return res.json({ isAdminOrOwner: false });
+    }
+    const { Owner, Admin } = roleResult[0];
+    if (Owner === 1)
+    {
+      return res.json({ isAdminOrOwner: true });
+    }
+    return res.json({ isAdminOrOwner: false });
+  });
+});
 
 app.listen(8081, () => {
   console.log('Listening on port 8081');
