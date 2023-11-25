@@ -340,7 +340,7 @@ app.post('/isAdminOrOwner', (req, res) => {
   });
 });
 
-
+// Days without malding on the project: 0
 
 app.listen(8081, () => {
   console.log('Listening on port 8081');
