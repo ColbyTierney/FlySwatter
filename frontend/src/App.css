@@ -328,13 +328,13 @@ Note: Beware of modifying this element as it can break the animations - you shou
   .sender {
     font-weight: bold;
     color: #333; /* Adjust color as needed */
-    position: relative;
+    position: fixed;
   }
   
   .project-id {
     color: #777; /* Adjust color as needed */
     margin-left: 10px; /* Add margin to separate Sender and Project ID */
-    position: relative;
+    position: fixed;
     right: -50px;
   }
 
@@ -347,11 +347,11 @@ Note: Beware of modifying this element as it can break the animations - you shou
 
 .invite-container{
   background-color: white;
-  padding: 150px 300px;
+  padding: 5%;
   border-radius: 8px;
-  width: 80%;
+  width: 50%;
   margin: 0 auto;
-  position: relative;
+  position: fixed;
   top: 150px;
-  left: -250px;
+  left: 50px;
 }
