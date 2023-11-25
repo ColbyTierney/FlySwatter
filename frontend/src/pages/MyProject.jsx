@@ -40,7 +40,7 @@ const MyProjects = () => {
   const sendInvite = () => {
     fetch('http://localhost:8081/checkUserInProject', {
       method: 'POST',
-      header: {
+      headers: {
         'Content-Type' : 'application/json',
       },
       body: JSON.stringify({
@@ -58,7 +58,7 @@ const MyProjects = () => {
       {
         fetch('http://localhost:8081/checkUserExists', {
         method: 'POST',
-        header: {
+        headers: {
           'Content-Type' : 'application/json',
         },
         body: JSON.stringify({
