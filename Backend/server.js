@@ -306,7 +306,7 @@ app.post('/checkUserExists', (req, res) => {
     return res.status(400).json({ error: 'Username is required' });
   }
 
-  const sql = 'SELECT * FROM Users WHERE username = ?'; // Assuming 'Users' is the table name
+  const sql = 'SELECT * FROM Users WHERE Username = ?'; // Assuming 'Users' is the table name
   db.query(sql, [username], (err, data) => {
     if (err) {
       return res.status(500).json(err);
