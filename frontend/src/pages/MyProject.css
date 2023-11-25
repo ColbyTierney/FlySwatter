@@ -15,9 +15,9 @@
   }
 
   .create-ticket {
-    position: relative;
-    left: 0px;
-    bottom: 30px;
+    position: fixed;
+    left: 900px;
+    top: 200px;
     background-color: #000000; /* Blue button color */
     color: #fff; /* White text color */
     padding: 10px 30px; /* Padding for the button */
@@ -43,8 +43,8 @@
   }
 
   .sort-by {
-    position: relative;
-    bottom: -50px;
+    position: fixed;
+    top: 200;
   }
 
   .error-message {
@@ -63,5 +63,17 @@
     left: 400px;
     bottom: 180px;
   }
+  .project-name {
+    position: fixed;
+    color: #fff;
+    top: 100px;
+    background: none !important; /* Remove background */
+    border: none !important; /* Remove border */
+    outline: none !important; /* Remove outline */
+    box-shadow: none !important; /* Remove box shadow */
+    -webkit-box-shadow: none !important; /* Remove box shadow for older webkits */
+    -moz-box-shadow: none !important; /* Remove box shadow for older Firefox */
+    font-size: 40px; /* Change font size */
+}
 
 
