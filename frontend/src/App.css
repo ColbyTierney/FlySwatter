@@ -348,7 +348,11 @@ Note: Beware of modifying this element as it can break the animations - you shou
   left: 50%; /* Align the message horizontally at 50% */
   transform: translateX(-50%);
 }
-
+.invite-container ul {
+  list-style-type: none; /* Removes default bullet points */
+  padding: 0; /* Remove default padding */
+  margin: 0; /* Remove default margin */
+}
 .invite-container{
   background-color: rgb(164, 196, 212);
   padding: 5%;
