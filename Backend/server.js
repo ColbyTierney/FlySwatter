@@ -403,6 +403,46 @@ app.post('/isOwner', (req, res) => {
   });
 });
 
+app.delete('/deleteProject', (req, res) => {
+  const projectId = req.body.projectId; // Assuming projectId is sent in the request body
+
+  if (!projectId) {
+    return res.status(400).json({ error: 'Project ID is required' });
+  }
+
+  const deleteInvitesSql = 'DELETE FROM Invites WHERE Project_ID = ?';
+  db.query(deleteInvitesSql, [projectId], (deleteInvitesErr, deleteInvitesResult) => {
+    if (deleteInvitesErr) {
+      return res.status(500).json(deleteInvitesErr);
+    }
+
+    const deleteTicketsSql = 'DELETE FROM Tickets WHERE Project_ID = ?';
+    db.query(deleteTicketsSql, [projectId], (deleteTicketsErr, deleteTicketsResult) => {
+      if (deleteTicketsErr) {
+        return res.status(500).json(deleteTicketsErr);
+      }
+
+      const deleteProjectSql = 'DELETE FROM Projects WHERE Project_ID = ?';
+      db.query(deleteProjectSql, [projectId], (deleteProjectErr, deleteProjectResult) => {
+        if (deleteProjectErr) {
+          return res.status(500).json(deleteProjectErr);
+        }
+
+        if (deleteProjectResult.affectedRows === 0) {
+          return res.status(404).json({ error: 'Project not found' });
+        }
+
+        return res.json({ message: 'Project, associated tickets, and invites deleted successfully', Project_ID: projectId });
+      });
+    });
+  });
+});
+
+
+
+
+
+
 app.listen(8081, () => {
   console.log('Listening on port 8081');
 });
