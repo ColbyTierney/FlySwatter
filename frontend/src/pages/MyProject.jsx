@@ -83,7 +83,8 @@ const MyProjects = () => {
     })
     .then((response) => response.json())
     .then((data) => {
-      setProjectMembers(data.members);
+      setProjectMembers(data.usernames);
+      console.log("Members: ", data.usernames);
       setMembersVisible(true);
     })
     .catch((error) => {
