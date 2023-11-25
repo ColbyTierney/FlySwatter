@@ -304,15 +304,12 @@ Note: Beware of modifying this element as it can break the animations - you shou
   }
   
   .show-invites-btn {
-    padding: 10px 20px;
+    padding: 8px 16px;
+    margin-bottom: 20px; /* Adjust margin as needed */
     background-color: #3498db;
     color: white;
     border: none;
-    border-radius: 5px;
-    margin-top: -5px; 
-    position: fixed;
-    top: 50px; 
-    right: 150px;
+    border-radius: 3px;
     cursor: pointer;
   }
   
@@ -340,3 +337,21 @@ Note: Beware of modifying this element as it can break the animations - you shou
     position: relative;
     right: -50px;
   }
+
+.welcome-message{
+  position: absolute; /* Position the welcome message absolutely */
+  top: 40px; /* Position at the top of the container */
+  left: 50%; /* Align the message horizontally at 50% */
+  transform: translateX(-50%);
+}
+
+.invite-container{
+  background-color: white;
+  padding: 150px 300px;
+  border-radius: 8px;
+  width: 80%;
+  margin: 0 auto;
+  position: relative;
+  top: 150px;
+  left: -250px;
+}

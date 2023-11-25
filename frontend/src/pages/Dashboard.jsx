@@ -48,23 +48,31 @@ function Dashboard() {
     <div>
       <Sidebar />
       <div className="dashboard-content">
-        <h1>Welcome, {username || 'Guest'}</h1>
-        <button className="show-invites-btn" onClick={fetchInvites}>Show Invites</button>
-        {invites.length > 0 && (
-          <div>
-            <h2>Invites:</h2>
+        <h1 className="welcome-message">Welcome, {username || 'Guest'}</h1>
+        
+        <div className="invite-container">
+          <button className="show-invites-btn" onClick={fetchInvites}>Refresh</button>
+
+          {invites.length > 0 && (
+            <div>
+              <h2>Invites:</h2>
             <ul>
               {invites.map(invite => (
                 <li key={invite.InviteID}>
                   <span className="sender">{invite.Sender}</span>
                   <span className="project-id">{invite.ProjectID}</span>
-                  <button className="accept-btn" onClick={() => acceptInvite(invite.InviteID, invite.ProjectID)}>Accept</button>
-                  <button className="deny-btn" onClick={() => denyInvite(invite.InviteID)}>Deny</button>
+                  <div className="button-container">
+                    <button className="accept-btn" onClick={() => acceptInvite(invite.InviteID, invite.ProjectID)}>Accept</button>
+                    <button className="deny-btn" onClick={() => denyInvite(invite.InviteID)}>Deny</button>
+                  </div>
                 </li>
-              ))}
-            </ul>
-          </div>
-        )}
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+        
+        
       </div>
     </div>
   );
