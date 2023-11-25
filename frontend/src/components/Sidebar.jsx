@@ -18,9 +18,7 @@ const Sidebar = () => {
 
   return (
     <Menu>
-      <button className="menu-item" onClick={() => handleLogout('/')}>
-        Logout
-      </button>
+      <div className="menu-item">{username || 'Not Logged In'}</div>
       <button className="menu-item" onClick={() => handleNavigate('/About')}>
         About us
       </button>
@@ -30,7 +28,9 @@ const Sidebar = () => {
       <button className="menu-item" onClick={() => handleNavigate('/Projects')}>
         Projects
       </button>
-      <div className="menu-item">{username || 'Not Logged In'}</div>
+      <button className="menu-item" onClick={() => handleLogout('/')}>
+        Logout
+      </button>
     </Menu>
   );
 }
