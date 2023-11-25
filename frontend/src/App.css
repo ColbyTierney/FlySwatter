@@ -346,12 +346,23 @@ Note: Beware of modifying this element as it can break the animations - you shou
 }
 
 .invite-container{
-  background-color: white;
-  padding: 150px 300px;
-  border-radius: 8px;
-  width: 80%;
+  background-color: rgb(164, 196, 212);
+  padding: 5%;
+  width: 40%;
   margin: 0 auto;
-  position: relative;
-  top: 150px;
-  left: -250px;
+  position: fixed;
+  top: 50%;
+  left: 20%;
+  overflow-y: auto;
+}
+
+.button-container{
+  
+}
+
+.invite{
+  color:#333;
+  position: absolute;
+  top: 6%;
+  left: 3%;
 }
