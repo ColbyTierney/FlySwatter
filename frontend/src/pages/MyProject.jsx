@@ -78,7 +78,7 @@ const MyProjects = () => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ projectID }),
+      body: JSON.stringify({ projectId: inviteDetails.projectId }),
     })
     .then((response) => response.json())
     .then((data) => {

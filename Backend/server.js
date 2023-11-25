@@ -344,14 +344,14 @@ app.post('/isAdminOrOwner', (req, res) => {
 });
 
 app.post('/getUsers', (req, res) => {
-  const { ProjectId } = req.body;
+  const { projectId } = req.body;
 
-  if (!ProjectId) {
+  if (!projectId) {
     return res.status(400).json({ error: 'Project_ID is required' });
   }
 
   const sql = 'SELECT Usernames FROM Projects WHERE Project_ID = ?';
-  db.query(sql, [ProjectId], (err, data) => {
+  db.query(sql, [projectId], (err, data) => {
     if (err) {
       return res.status(500).json({ error: 'Database error' });
     }
