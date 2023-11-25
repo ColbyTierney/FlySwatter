@@ -41,13 +41,26 @@ const MyProjects = () => {
     fetch('http://localhost:8081/createInvite', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type' : 'application/json',
       },
       body: JSON.stringify(inviteDetails),
     })
     .then((response) => response.json())
     .then((data) => {
-      console.log('Invite sent successfully:', data);
+      if (data.existsInProject)
+      {
+        console.log('User is already in the project');
+      }
+      else
+      {
+        fetch('http://localhost:8081/checkUserExists', {
+        method: 'POST',
+        headers: {
+          'Content-Type' : 'application/json',
+        },
+        body: JSON.stringify({
+          username: inviteDetails.receiver
+      }),
     })
     .catch((error) => {
       console.error('Error sending invite', error);
