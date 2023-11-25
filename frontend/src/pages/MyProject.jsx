@@ -38,15 +38,12 @@ const MyProjects = () => {
   };
 
   const sendInvite = () => {
-    fetch('http://localhost:8081/checkUserInProject', {
+    fetch('http://localhost:8081/createInvite', {
       method: 'POST',
       headers: {
         'Content-Type' : 'application/json',
       },
-      body: JSON.stringify({
-        username: inviteDetails.receiver,
-        projectId: inviteDetails.projectId
-      }),
+      body: JSON.stringify(inviteDetails),
     })
     .then((response) => response.json())
     .then((data) => {
@@ -65,33 +62,9 @@ const MyProjects = () => {
           username: inviteDetails.receiver
       }),
     })
-    .then((res) => res.json())
-    .then((d) => {
-      if (d.exists)
-      {
-        console.log('User is not in the project. Sending invite...');
-        fetch('http://localhost:8081/createInvite', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(inviteDetails),
-        })
-        .then((response) => response.json())
-        .then((d) => {
-        console.log('Invite sent successfully:', d);
-        })
-        .catch((error) => {
-        console.error('Error sending invite', error);
-        });
-      }
-      else
-      {
-        console.error('User does not exist');
-      }
+    .catch((error) => {
+      console.error('Error sending invite', error);
     });
-      }
-  });
   };
 
   useEffect(() => {
@@ -188,7 +161,7 @@ const MyProjects = () => {
           onChange={handleInviteInputChange}
         />
         <button onClick={() => { sendInvite(); close(); }}>Send Invite</button>
-        <button className="send-invite-close-button"onClick={close}>Close</button>
+        <button onClick={close}>Close</button>
         </div>
   )}
 </Popup>
