@@ -471,7 +471,7 @@ app.post('/isAdmin', (req, res) => {
   });
 });
 
-app.delete('/deleteProject', (req, res) => {
+app.post('/deleteProject', (req, res) => {
   const projectId = req.body.projectId; // Assuming projectId is sent in the request body
 
   if (!projectId) {
