@@ -312,16 +312,26 @@ Note: Beware of modifying this element as it can break the animations - you shou
     border-radius: 3px;
     cursor: pointer;
     position: relative;
-    left: 95%;
-    bottom: 60px;
+    left: 75%;
   }
   
-  .accept-btn,
-  .deny-btn {
+  .accept-btn{
     padding: .2% 1%;
     margin-left: 10px;
     margin-bottom: 10px;
     background-color: #2ecc71;
+    color: white;
+    border-radius: 3%;
+    cursor: pointer;
+    position: relative;
+    right: -40%;
+  }
+
+  .deny-btn {
+    padding: .2% 1%;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    background-color: #cc2e2e;
     color: white;
     border-radius: 3%;
     cursor: pointer;
@@ -355,7 +365,7 @@ Note: Beware of modifying this element as it can break the animations - you shou
 }
 .invite-container{
   background-color: rgb(164, 196, 212);
-  padding: 5%;
+  padding: 3%;
   width: 30%;
   margin: 0 auto;
   position: fixed;
