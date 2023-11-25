@@ -186,7 +186,7 @@ app.post('/getProjectName', (req, res) => {
 
 app.post('/createInvite', (req, res) => {
   const { sender, projectId, receiver } = req.body;
-
+  console.log("ProjectID: ", projectId);
   if (!sender || !projectId || !receiver) {
     return res.status(400).json({ error: 'Sender, ProjectID, and Receiver are required' });
   }
@@ -345,7 +345,7 @@ app.post('/isAdminOrOwner', (req, res) => {
 
 app.post('/getUsers', (req, res) => {
   const { ProjectId } = req.body;
-
+  console.log("Project ID:", ProjectId);
   if (!ProjectId) {
     return res.status(400).json({ error: 'Project_ID is required' });
   }
