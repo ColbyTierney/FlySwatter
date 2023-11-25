@@ -312,7 +312,6 @@ Note: Beware of modifying this element as it can break the animations - you shou
     border-radius: 3px;
     cursor: pointer;
     position: relative;
-    left: 5%;
   }
   
   .accept-btn{
