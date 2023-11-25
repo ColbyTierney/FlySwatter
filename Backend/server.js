@@ -335,8 +335,11 @@ app.post('/isAdminOrOwner', (req, res) => {
       return res.json({ isAdminOrOwner: false });
     }
     const { Owner, Admin } = roleResult[0];
-    const isAdminOrOwner = Owner === 1 || Admin === 1;
-    return res.json({ isAdminOrOwner });
+    if (Owner === 1 ||Admin === 1)
+    {
+      return res.json({ isAdminOrOwner: true });
+    }
+    return res.json({ isAdminOrOwner: false });
   });
 });
 
