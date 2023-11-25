@@ -38,7 +38,7 @@
     border: none; /* No border */
     border-radius: 5px; /* Rounded corners */
     cursor: pointer; /* Cursor style on hover */
-    right: 30%;
+    right: 25%;
     top: 15%;
   }
 
@@ -60,7 +60,7 @@
     border: none; /* No border */
     border-radius: 5px; /* Rounded corners */
     cursor: pointer; /* Cursor style on hover */
-    right: 15%;
+    right: 10%;
     top: 15%;
   }
   .project-name {
