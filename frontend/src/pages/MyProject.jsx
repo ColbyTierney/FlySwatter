@@ -16,6 +16,8 @@ const MyProjects = () => {
   const [sortCriteria, setSortCriteria] = useState('priority');
   const { username } = useUser();
   const [isAdminOrOwner, setIsAdminOrOwner] = useState(false);
+  const [projectMembers, setProjectMembers] = useState([]);
+  const [membersVisible, setMembersVisible] = useState(false);
   const [inviteError, setInviteError] = useState(null);
   const [inviteDetails, setInviteDetails] = useState({
     sender: username,
@@ -68,6 +70,24 @@ const MyProjects = () => {
       ...prevDetails,
       [name]: value,
     }));
+  };
+
+  const fetchProjectMembers = () => {
+    fetch('http://localhost:8081/getUsers', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ projectID }),
+    })
+    .then((response) => response.json())
+    .then((data) => {
+      setProjectMembers(data.members);
+      setMembersVisible(true);
+    })
+    .catch((error) => {
+      console.error('Error fetching project members', error);
+    });
   };
 
   const sendInvite = (close) => {
@@ -208,6 +228,18 @@ const MyProjects = () => {
       </button>
       <Popup open={visible} onClose={() => setVisible(false)}>
         {Createticket}
+      </Popup>
+
+      <button className="show-members-button" onClick={fetchProjectMembers}>Show Members</button>
+      <Popup open={membersVisible} onClose={() => setMembersVisible(false)}>
+        <div>
+          <h2> Project Members</h2>
+          <ul>
+            {projectMembers && projectMembers.map((member) => (
+              <li key={member}>{member}</li>
+            ))}
+          </ul>
+        </div>
       </Popup>
 
       <Popup
