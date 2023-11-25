@@ -506,6 +506,26 @@ app.post('/deleteProject', (req, res) => {
   });
 });
 
+app.post('/leaveProject', (req, res) => {
+  const { projectId, username } = req.body; // Correct destructuring
+
+  if (!projectId || !username) {
+    return res.status(400).json({ error: 'Project ID and username are required' });
+  }
+
+  const deleteProjectSql = 'DELETE FROM Projects WHERE Project_ID = ? AND Usernames = ?';
+  db.query(deleteProjectSql, [projectId, username], (deleteProjectErr, deleteProjectResult) => {
+    if (deleteProjectErr) {
+      return res.status(500).json(deleteProjectErr);
+    }
+
+    if (deleteProjectResult.affectedRows === 0) {
+      return res.status(404).json({ error: 'Project not found or user is not a member' });
+    }
+
+    return res.json({ message: 'Project, associated tickets, and invites deleted successfully', Project_ID: projectId });
+  });
+});
 
 app.listen(8081, () => {
   console.log('Listening on port 8081');
