@@ -311,31 +311,35 @@ Note: Beware of modifying this element as it can break the animations - you shou
     border: none;
     border-radius: 3px;
     cursor: pointer;
+    position: relative;
+    left: 95%;
+    bottom: 60px;
   }
   
   .accept-btn,
   .deny-btn {
-    padding: 5px 10px;
+    padding: .2% 1%;
     margin-left: 10px;
+    margin-bottom: 10px;
     background-color: #2ecc71;
     color: white;
-    border: none;
-    border-radius: 3px;
+    border-radius: 3%;
     cursor: pointer;
     position: relative;
-    right: -100px;
+    right: -40%;
   }
   .sender {
     font-weight: bold;
     color: #333; /* Adjust color as needed */
-    position: relative;
+    position: fixed;
+    right: 56%;
   }
-  
+ 
   .project-id {
     color: #777; /* Adjust color as needed */
     margin-left: 10px; /* Add margin to separate Sender and Project ID */
-    position: relative;
-    right: -50px;
+    position: fixed;
+    right: 53%;
   }
 
 .welcome-message{
@@ -348,21 +352,17 @@ Note: Beware of modifying this element as it can break the animations - you shou
 .invite-container{
   background-color: rgb(164, 196, 212);
   padding: 5%;
-  width: 40%;
+  width: 30%;
   margin: 0 auto;
   position: fixed;
-  top: 50%;
-  left: 20%;
+  top: 30%;
+  left: 35%;
   overflow-y: auto;
-}
-
-.button-container{
-  
 }
 
 .invite{
   color:#333;
   position: absolute;
-  top: 6%;
-  left: 3%;
+  top: 5%;
+  left: 5%;
 }

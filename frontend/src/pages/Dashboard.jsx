@@ -43,7 +43,6 @@ function Dashboard() {
       });
   };
 
-  
   return (
     <div>
       <Sidebar />
@@ -51,32 +50,28 @@ function Dashboard() {
         <h1 className="welcome-message">Welcome, {username || 'Guest'}</h1>
         
         <div className="invite-container">
-        <h2 className="invite">Your Invitations</h2>
+          <h2 className="invite">Your Invitations</h2>
           <button className="show-invites-btn" onClick={fetchInvites}>Refresh</button>
           {invites.length > 0 && (
-            <div>
-              
             <ul>
               {invites.map(invite => (
                 <li key={invite.InviteID}>
-                  <span className="sender">{invite.Sender}</span>
-                  <span className="project-id">{invite.ProjectID}</span>
+                  <div className="invite-details">
+                    <span className="sender">{invite.Sender}</span>
+                    <span className="project-id">{invite.ProjectID}</span>
+                  </div>
                   <div className="button-container">
                     <button className="accept-btn" onClick={() => acceptInvite(invite.InviteID, invite.ProjectID)}>Accept</button>
                     <button className="deny-btn" onClick={() => denyInvite(invite.InviteID)}>Deny</button>
                   </div>
                 </li>
-                ))}
-              </ul>
-            </div>
+              ))}
+            </ul>
           )}
         </div>
-        
-        
       </div>
     </div>
   );
-  
 }
 
 export default Dashboard;
