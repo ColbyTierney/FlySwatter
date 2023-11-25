@@ -349,12 +349,20 @@ app.post('/getUsers', (req, res) => {
   if (!ProjectId) {
     return res.status(400).json({ error: 'Project_ID is required' });
   }
+
   const sql = 'SELECT Usernames FROM Projects WHERE Project_ID = ?';
   db.query(sql, [ProjectId], (err, data) => {
     if (err) {
-      return res.status(500).json(err);
+      return res.status(500).json({ error: 'Database error' });
     }
-    return res.json(data);
+
+    if (data.length === 0) {
+      return res.status(404).json({ error: 'Project not found' });
+    }
+
+    // Extract usernames from the data and format the response
+    const usernames = data.map(item => item.Usernames);
+    return res.json({ usernames });
   });
 });
 // Days without malding on the project: 0
