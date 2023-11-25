@@ -43,6 +43,7 @@ function Dashboard() {
       });
   };
 
+  
   return (
     <div>
       <Sidebar />
@@ -55,8 +56,8 @@ function Dashboard() {
             <ul>
               {invites.map(invite => (
                 <li key={invite.InviteID}>
-                  <span className="sender">Sender: {invite.Sender}</span>
-                  <span className="project-id">Project ID: {invite.ProjectID}</span>
+                  <span className="sender">{invite.Sender}</span>
+                  <span className="project-id">{invite.ProjectID}</span>
                   <button className="accept-btn" onClick={() => acceptInvite(invite.InviteID, invite.ProjectID)}>Accept</button>
                   <button className="deny-btn" onClick={() => denyInvite(invite.InviteID)}>Deny</button>
                 </li>
