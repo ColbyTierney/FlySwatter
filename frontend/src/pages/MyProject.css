@@ -8,7 +8,7 @@
   }
 
   .popup-content {
-    background: #ebecf1;
+    background: rgb(85, 129, 98);
     padding: 2.5em 1.5em 0;
     font-size: 1.15em;
     border-radius: 10px;
@@ -16,9 +16,9 @@
 
   .create-ticket {
     position: relative;
-    left: -30px;
-    bottom: 40px;
-    background-color: #007bff; /* Blue button color */
+    left: 0px;
+    bottom: 30px;
+    background-color: #000000; /* Blue button color */
     color: #fff; /* White text color */
     padding: 10px 30px; /* Padding for the button */
     border: none; /* No border */
@@ -27,18 +27,18 @@
   }
   
   .create-ticket:hover {
-    background-color: #0056b3; /* Darker blue on hover */
+    background-color: #000000; /* Darker blue on hover */
   }
 
   .send-invite-button {
     position: relative;
-    background-color: #060b11; /* Blue button color */
+    background-color: #194279; /* Blue button color */
     color: #fff; /* White text color */
     padding: 10px 30px; /* Padding for the button */
     border: none; /* No border */
     border-radius: 5px; /* Rounded corners */
     cursor: pointer; /* Cursor style on hover */
-    left: 400px;
+    left: 410px;
     bottom: 180px;
   }
 
@@ -54,7 +54,7 @@
 
   .show-members-button {
     position: relative;
-    background-color: #060b11; /* Blue button color */
+    background-color: #194279; /* Blue button color */
     color: #fff; /* White text color */
     padding: 10px 30px; /* Padding for the button */
     border: none; /* No border */
