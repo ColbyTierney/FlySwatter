@@ -135,8 +135,6 @@ app.post('/getProjectID', (req, res) => {
     if (data.length === 0) {
       return res.status(404).json({ error: 'User not found in any projects' });
     }
-
-    // Extract Project_ID and Project_Name from the result data
     const projectInfo = data.map((row) => ({ Project_ID: row.Project_ID, Project_Name: row.Project_Name }));
     return res.json({ projectInfo });
   });
@@ -148,8 +146,6 @@ app.post('/createProject', (req, res) => {
   if (!username || !projectName) {
     return res.status(400).json({ error: 'Username and project_name are required' });
   }
-
-  // Generate a new Project_ID by finding the maximum existing Project_ID and adding 1
   const getMaxProjectIdSql = 'SELECT MAX(Project_ID) AS maxProjectId FROM Projects';
   db.query(getMaxProjectIdSql, (maxIdErr, maxIdResult) => {
     if (maxIdErr) {
@@ -157,8 +153,6 @@ app.post('/createProject', (req, res) => {
     }
     const maxProjectId = maxIdResult[0].maxProjectId || 0;
     const newProjectId = maxProjectId + 1;
-
-    // Insert the new project into the database with the new Project_ID
     const insertSql = 'INSERT INTO Projects (Project_ID, Usernames, Project_Name, Owner, Admin) VALUES (?, ?, ?, ?, ?)';
     db.query(insertSql, [newProjectId, username, projectName, 1, 1], (insertErr, insertData) => {
       if (insertErr) {
@@ -196,8 +190,6 @@ app.post('/createInvite', (req, res) => {
   if (!sender || !projectId || !receiver) {
     return res.status(400).json({ error: 'Sender, ProjectID, and Receiver are required' });
   }
-
-  // Generate a new unique InviteID by finding the maximum existing InviteID and adding 1
   const getMaxInviteIdSql = 'SELECT MAX(InviteID) AS maxInviteId FROM Invites';
   db.query(getMaxInviteIdSql, (maxIdErr, maxIdResult) => {
     if (maxIdErr) {
@@ -216,10 +208,6 @@ app.post('/createInvite', (req, res) => {
     });
   });
 });
-
-
-
-
 
 app.post('/getInvites', (req, res) => {
   const { receiver } = req.body;
@@ -291,15 +279,12 @@ app.post('/addusertoproject', (req, res) => {
   });
 });
 
-
 app.post('/checkUserInProject', (req, res) => {
   const { username, projectId } = req.body;
 
   if (!username || !projectId) {
     return res.status(400).json({ error: 'Username and Project ID are required' });
   }
-
-  // Check if the username exists in the specified project
   const sql = 'SELECT * FROM Projects WHERE Usernames = ? AND Project_ID = ?';
   db.query(sql, [username, projectId], (err, data) => {
     if (err) {
@@ -313,7 +298,6 @@ app.post('/checkUserInProject', (req, res) => {
     return res.json({ existsInProject: true });
   });
 });
-
 
 app.listen(8081, () => {
   console.log('Listening on port 8081');
