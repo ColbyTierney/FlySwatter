@@ -52,7 +52,6 @@ function Dashboard() {
         
         <div className="invite-container">
           <button className="show-invites-btn" onClick={fetchInvites}>Refresh</button>
-
           {invites.length > 0 && (
             <div>
               <h2>Invites:</h2>
