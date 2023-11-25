@@ -51,10 +51,11 @@ function Dashboard() {
         <h1 className="welcome-message">Welcome, {username || 'Guest'}</h1>
         
         <div className="invite-container">
+        <h2 className="invite">Your Invitations</h2>
           <button className="show-invites-btn" onClick={fetchInvites}>Refresh</button>
           {invites.length > 0 && (
             <div>
-              <h2>Invites:</h2>
+              
             <ul>
               {invites.map(invite => (
                 <li key={invite.InviteID}>

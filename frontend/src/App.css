@@ -304,13 +304,16 @@ Note: Beware of modifying this element as it can break the animations - you shou
   }
   
   .show-invites-btn {
-    padding: 8px 16px;
+    padding: 1.5% 4%;
     margin-bottom: 20px; /* Adjust margin as needed */
     background-color: #3498db;
     color: white;
     border: none;
     border-radius: 3px;
     cursor: pointer;
+    position: absolute;
+    right: 5%;
+    top: 6%;
   }
   
   .accept-btn,
@@ -348,10 +351,21 @@ Note: Beware of modifying this element as it can break the animations - you shou
 .invite-container{
   background-color: white;
   padding: 5%;
-  border-radius: 8px;
   width: 50%;
   margin: 0 auto;
   position: fixed;
-  top: 150px;
-  left: 50px;
+  top: 50%;
+  left: 20%;
+  overflow-y: auto;
+}
+
+.button-container{
+
+}
+
+.invite{
+  color:#333;
+  position: absolute;
+  top: 6%;
+  left: 3%;
 }
