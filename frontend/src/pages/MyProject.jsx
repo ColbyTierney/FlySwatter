@@ -37,10 +37,12 @@ const MyProjects = () => {
 
       if (!response.ok)
       {
+        console.log('Admin/Owner check failed');
         throw new Error('Failed to check admin/owner status');
       }
 
       const data = await response.json();
+      console.log(data);
       return data.isAdminOrOwner;
     } catch (error) {
       console.error('Error checking admin/owner status:', error);
