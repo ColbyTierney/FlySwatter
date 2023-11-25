@@ -190,24 +190,40 @@ app.post('/createInvite', (req, res) => {
   if (!sender || !projectId || !receiver) {
     return res.status(400).json({ error: 'Sender, ProjectID, and Receiver are required' });
   }
-  const getMaxInviteIdSql = 'SELECT MAX(InviteID) AS maxInviteId FROM Invites';
-  db.query(getMaxInviteIdSql, (maxIdErr, maxIdResult) => {
-    if (maxIdErr) {
-      return res.status(500).json(maxIdErr);
-    }
-    const maxInviteId = maxIdResult[0].maxInviteId || 0;
-    const newInviteId = maxInviteId + 1;
 
-    // Insert a new invite into the database with the new InviteID, Sender, ProjectID, and Receiver
-    const insertSql = 'INSERT INTO Invites (InviteID, Sender, ProjectID, Receiver) VALUES (?, ?, ?, ?)';
-    db.query(insertSql, [newInviteId, sender, projectId, receiver], (insertErr, insertData) => {
-      if (insertErr) {
-        return res.status(500).json(insertErr);
+  // Check if an invite already exists for the same receiver and project
+  const checkExistingInviteSql = 'SELECT * FROM Invites WHERE Receiver = ? AND ProjectID = ?';
+  db.query(checkExistingInviteSql, [receiver, projectId], (checkErr, checkData) => {
+    if (checkErr) {
+      return res.status(500).json(checkErr);
+    }
+
+    // If an invite already exists, send an error response
+    if (checkData.length > 0) {
+      return res.status(400).json({ error: 'An invite to this receiver for the same project already exists' });
+    }
+
+    // Proceed to create a new invite since it doesn't exist yet
+    const getMaxInviteIdSql = 'SELECT MAX(InviteID) AS maxInviteId FROM Invites';
+    db.query(getMaxInviteIdSql, (maxIdErr, maxIdResult) => {
+      if (maxIdErr) {
+        return res.status(500).json(maxIdErr);
       }
-      return res.json({ message: 'Invite sent successfully', Sender: sender, ProjectID: projectId, Receiver: receiver, InviteID: newInviteId });
+      const maxInviteId = maxIdResult[0].maxInviteId || 0;
+      const newInviteId = maxInviteId + 1;
+
+      // Insert a new invite into the database with the new InviteID, Sender, ProjectID, and Receiver
+      const insertSql = 'INSERT INTO Invites (InviteID, Sender, ProjectID, Receiver) VALUES (?, ?, ?, ?)';
+      db.query(insertSql, [newInviteId, sender, projectId, receiver], (insertErr, insertData) => {
+        if (insertErr) {
+          return res.status(500).json(insertErr);
+        }
+        return res.json({ message: 'Invite sent successfully', Sender: sender, ProjectID: projectId, Receiver: receiver, InviteID: newInviteId });
+      });
     });
   });
 });
+
 
 app.post('/getInvites', (req, res) => {
   const { receiver } = req.body;
