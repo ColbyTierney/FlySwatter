@@ -92,6 +92,53 @@ const MyProjects = () => {
     });
   };
 
+  const handlePromoteDemote = (member, action) => {
+    fetch(`http://localhost:8081/${action}User`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        username: member,
+        projectId: ProjectID,
+      }),
+    })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(`User ${action}d successfully:`, data);
+      fetchProjectMembers();
+    })
+    .catch((error) => {
+      console.error('Error ${action}ing user:', error);
+    });
+  };
+
+  const checkAdminStatus = async (username, projectID) => {
+    try {
+      const response = await fetch('http://localhost:8081/isAdmin', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          username: username,
+          projectId: projectID
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const data = await response.json();
+
+      return data.isAdmin;
+    } catch (error) {
+      console.error('Error checking admin status:', error);
+      return false;
+    }
+  };
+
   const sendInvite = (close) => {
     setInviteError(null);
 
@@ -216,7 +263,7 @@ const MyProjects = () => {
   return (
     <div>
       <Sidebar />
-      <h1>{projectName}</h1> {/* Display the project name */}
+      <h1 className="project-name">{projectName}</h1> {/* Display the project name */}
       <div>
         <label className="sort-by">Sort by:</label>
         <select className="sort-by" onChange={(e) => handleSortChange(e.target.value)}>
@@ -238,7 +285,22 @@ const MyProjects = () => {
           <h2> Project Members</h2>
           <ul>
             {projectMembers && projectMembers.map((member) => (
-              <li key={member}>{member}</li>
+              <li key={member}>
+                {member}
+                {isAdminOrOwner && member !== username && (
+                  <>
+                  {isAdmin(member, projectID) ? (
+                    <button onClick={() => handlePromoteDemote(member, 'promote')}>
+                      Promote
+                    </button>
+                  ) : (
+                    <button onClick={() => handlePromoteDemote(member, 'demote')}>
+                      Demote
+                    </button>
+                    )}
+                  </>
+                )}
+                </li>
             ))}
           </ul>
         </div>
