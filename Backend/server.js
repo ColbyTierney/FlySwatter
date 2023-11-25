@@ -299,6 +299,29 @@ app.post('/checkUserInProject', (req, res) => {
   });
 });
 
+app.post('/checkUserExists', (req, res) => {
+  const { username } = req.body;
+
+  if (!username) {
+    return res.status(400).json({ error: 'Username is required' });
+  }
+
+  const sql = 'SELECT * FROM Users WHERE username = ?'; // Assuming 'Users' is the table name
+  db.query(sql, [username], (err, data) => {
+    if (err) {
+      return res.status(500).json(err);
+    }
+
+    if (data.length === 0) {
+      return res.json({ exists: false });
+    }
+
+    return res.json({ exists: true });
+  });
+});
+
+
+
 app.listen(8081, () => {
   console.log('Listening on port 8081');
 });
