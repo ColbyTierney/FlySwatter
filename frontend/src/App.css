@@ -341,4 +341,7 @@ Note: Beware of modifying this element as it can break the animations - you shou
   .project-id {
     color: #777; /* Adjust color as needed */
     margin-left: 10px; /* Add margin to separate Sender and Project ID */
+    position: relative;
+    top: -50px; 
+    right: -850px;
   }

@@ -404,6 +404,27 @@ app.post('/promoteUser', (req, res) => {
   });
 });
 
+app.post('/demoteUser', (req, res) => {
+  const { username, ProjectId } = req.body;
+
+  if (!username || !ProjectId) {
+    return res.status(400).json({ error: 'Username and ProjectId are required' });
+  }
+
+  const updateSql = 'UPDATE Projects SET Admin = 0 WHERE Usernames = ? AND ProjectID = ?';
+  db.query(updateSql, [username, ProjectId], (updateErr, updateResult) => {
+    if (updateErr) {
+      return res.status(500).json(updateErr);
+    }
+
+    if (updateResult.affectedRows === 0) {
+      return res.status(404).json({ error: 'No project found for the given username and ProjectId' });
+    }
+
+    return res.json({ message: 'Admin status updated successfully for username: ' + username });
+  });
+});
+
 app.post('/isOwner', (req, res) => {
   const { username, projectId } = req.body;
 
@@ -416,14 +437,37 @@ app.post('/isOwner', (req, res) => {
       return res.status(500).json(roleErr);
     }
     if (roleResult.length === 0) {
-      return res.json({ isAdminOrOwner: false });
+      return res.json({ isOwner: false });
     }
-    const { Owner, Admin } = roleResult[0];
+    const { Owner } = roleResult[0];
     if (Owner === 1)
     {
-      return res.json({ isAdminOrOwner: true });
+      return res.json({ isOwner: true });
     }
-    return res.json({ isAdminOrOwner: false });
+    return res.json({ isOwner: false });
+  });
+});
+
+app.post('/isAdmin', (req, res) => {
+  const { username, projectId } = req.body;
+
+  if (!username || !projectId) {
+    return res.status(400).json({ error: 'Username and Project_ID are required' });
+  }
+  const getRoleSql = 'SELECT Admin FROM Projects WHERE Project_ID = ? AND Usernames = ?';
+  db.query(getRoleSql, [projectId, username], (roleErr, roleResult) => {
+    if (roleErr) {
+      return res.status(500).json(roleErr);
+    }
+    if (roleResult.length === 0) {
+      return res.json({ isAdmin: false });
+    }
+    const { Admin } = roleResult[0];
+    if (Admin === 1)
+    {
+      return res.json({ isAdmin: true });
+    }
+    return res.json({ isAdmin: false });
   });
 });
 
