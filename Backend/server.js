@@ -186,7 +186,7 @@ app.post('/getProjectName', (req, res) => {
 
 app.post('/createInvite', (req, res) => {
   const { sender, projectId, receiver } = req.body;
-
+  console.log("ProjectID: ", projectId);
   if (!sender || !projectId || !receiver) {
     return res.status(400).json({ error: 'Sender, ProjectID, and Receiver are required' });
   }

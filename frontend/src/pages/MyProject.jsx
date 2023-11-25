@@ -73,12 +73,13 @@ const MyProjects = () => {
   };
 
   const fetchProjectMembers = () => {
+    console.log("Project ID:", projectID);
     fetch('http://localhost:8081/getUsers', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type' : 'application/json',
       },
-      body: JSON.stringify({ projectId: inviteDetails.projectId }),
+      body: JSON.stringify({projectId: projectID}),
     })
     .then((response) => response.json())
     .then((data) => {
