@@ -44,7 +44,9 @@
 
   .sort-by {
     position: fixed;
-    top: 200;
+    padding: .5% 1.5%;
+    top: 15%;
+
   }
 
   .error-message {
