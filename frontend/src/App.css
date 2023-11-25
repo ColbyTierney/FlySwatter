@@ -364,8 +364,8 @@ Note: Beware of modifying this element as it can break the animations - you shou
   margin: 0; /* Remove default margin */
 }
 .invite-container{
-  background-color: rgb(164, 196, 212);
-  padding: 3%;
+  background-color: rgba(164, 196, 212, 0.576);
+  padding: 5%;
   width: 30%;
   margin: 0 auto;
   position: fixed;
