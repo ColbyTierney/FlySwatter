@@ -50,7 +50,7 @@
     padding: .5% 1.5%;
     align-self: center;
     top: 15%;
-    right: 46%;
+    left: center;
     font-size: 100%;
   }
 
@@ -74,9 +74,8 @@
   .project-name {
     position: fixed;
     color: #fff;
-    text-align: center;
     top: 5%;
-    right: 0%;
+    right: center;
     background: none !important; /* Remove background */
     border: none !important; /* Remove border */
     outline: none !important; /* Remove outline */
