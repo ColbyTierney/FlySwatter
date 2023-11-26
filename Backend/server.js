@@ -532,7 +532,7 @@ app.post('/leaveProject', (req, res) => {
       return res.status(404).json({ error: 'Project not found or user is not a member' });
     }
 
-    return res.json({ message: 'Project, associated tickets, and invites deleted successfully', Project_ID: projectId });
+    return res.json({ message: 'Project left successfully', Project_ID: projectId });
   });
 });
 

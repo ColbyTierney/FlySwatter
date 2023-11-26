@@ -77,6 +77,26 @@ const MyProjects = () => {
       });
   };
 
+  const handleLeave = () => {
+    // Perform the delete logic directly within this function
+    fetch('http://localhost:8081/leaveProject', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ username: username, projectId: projectID }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data.message); // Log the delete message
+        // Additional actions to perform after successful deletion
+      })
+      .catch((error) => {
+        console.error('Error leaving project:', error);
+        // Handle error scenarios
+      });
+  };
+
   useEffect(() => {
     const checkAdminOrOwner = async () => {
       try {
@@ -383,9 +403,13 @@ const MyProjects = () => {
         Create Ticket
       </button>
 
-      {isOwner && (
+      {isOwner === true ? (
         <button className="delete-project-button" onClick={handleDelete}>
           Delete Project
+        </button>
+      ) : (
+        <button className="delete-project-button" onClick={handleLeave}>
+          Leave Project
         </button>
       )}
 
