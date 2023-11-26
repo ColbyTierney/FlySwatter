@@ -313,7 +313,7 @@ const MyProjects = () => {
         return data;
     }
   };
-
+  
   return (
     <div>
       <Sidebar />
@@ -344,11 +344,11 @@ const MyProjects = () => {
             <>
               {adminStatusArray[member] === 0 ? (
                 <button onClick={() => handlePromote(member)}>
-                  Promote
+                  <span>Member</span> Promote
                 </button>
             ) : (
               <button onClick={() => handleDemote(member)}>
-                Demote
+                <span>Admin</span> Demote
           </button>
         )}
       </>
