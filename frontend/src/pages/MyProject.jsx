@@ -320,7 +320,6 @@ const MyProjects = () => {
       <Popup open={visible} onClose={() => setVisible(false)}>
         {Createticket}
       </Popup>
-
       <button className="show-members-button" onClick={fetchProjectMembers}>Show Members</button>
       <Popup open={membersVisible} onClose={() => setMembersVisible(false)}>
         <div>
