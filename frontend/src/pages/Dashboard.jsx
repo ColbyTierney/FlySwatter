@@ -72,7 +72,7 @@ function Dashboard() {
         <div className="invite-container">
         <h2 className="invite">Your Invitations</h2>
           <button className="show-invites-btn" onClick={fetchInvites}>Refresh</button>
-          {invites.length > 0 && (
+          {invites.length > 0 ? (
             <div>
               
             <ul>
@@ -88,7 +88,10 @@ function Dashboard() {
                 ))}
               </ul>
             </div>
+          ) : (
+            <p>You do not have any new invitations.</p>
           )}
+
         </div>
         
         
