@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 
 // Create the ProjectContext
 const ProjectContext = createContext();
@@ -7,27 +7,8 @@ const ProjectContext = createContext();
 const ProjectProvider = ({ children }) => {
   const [projectID, setProjectID] = useState(null);
 
-  // Load the projectID from localStorage when the component mounts
-  useEffect(() => {
-    const savedProjectID = localStorage.getItem('projectID');
-    if (savedProjectID) {
-      setProjectID(savedProjectID);
-    }
-  }, []);
-
-  const updateProjectID = (newProjectID) => {
-    setProjectID(newProjectID);
-  };
-
-  // Update localStorage whenever the projectID changes
-  useEffect(() => {
-    if (projectID) {
-      localStorage.setItem('projectID', projectID);
-    }
-  }, [projectID]);
-
   return (
-    <ProjectContext.Provider value={{ projectID, updateProjectID }}>
+    <ProjectContext.Provider value={{ projectID, setProjectID }}>
       {children}
     </ProjectContext.Provider>
   );
