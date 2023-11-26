@@ -27,8 +27,9 @@ function CreateNewProject() {
 
       if (response.ok) {
         setMessage('Project created successfully');
-        const { Project_ID } = await response.json;
-        updateProjectID(Project_ID);
+        const { Project_ID: newProjectId } = await response.json();
+        console.log("New Project ID:", newProjectId);
+        updateProjectID(newProjectId);
         navigate("/MyProject");
       } else {
         const errorData = await response.json();
