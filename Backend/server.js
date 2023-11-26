@@ -366,7 +366,7 @@ app.post('/getUsers', (req, res) => {
     return res.status(400).json({ error: 'Project_ID is required' });
   }
 
-  const sql = 'SELECT Usernames, Admin FROM Projects WHERE Project_ID = ?';
+  const sql = 'SELECT Usernames,Admin FROM Projects WHERE Project_ID = ?';
   db.query(sql, [projectId], (err, data) => {
     if (err) {
       return res.status(500).json({ error: 'Database error' });
@@ -378,7 +378,7 @@ app.post('/getUsers', (req, res) => {
 
     // Extract usernames from the data and format the response
     const usernames = data.map(item => item.Usernames);
-    return res.json({ usernames });
+    return res.json({ usernames, isAdmin });
   });
 });
 // Days without malding on the project: 0
