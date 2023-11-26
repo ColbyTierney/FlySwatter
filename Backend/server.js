@@ -536,6 +536,28 @@ app.post('/leaveProject', (req, res) => {
   });
 });
 
+app.post('/deleteTicket', (req, res) => {
+  const ticketId = req.body.ticketId; // 
+
+  if (!ticketId) {
+    return res.status(400).json({ error: 'Ticket ID is required' });
+  }
+
+  const deleteTicketSql = 'DELETE FROM Tickets WHERE TicketID = ?';
+  db.query(deleteTicketSql, [ticketId], (deleteTicketErr, deleteTicketResult) => {
+    if (deleteTicketErr) {
+      return res.status(500).json(deleteTicketErr);
+    }
+
+    if (deleteTicketResult.affectedRows === 0) {
+      return res.status(404).json({ error: 'Ticket not found' });
+    }
+
+    return res.json({ message: 'Ticket deleted successfully', Ticket_ID: ticketId });
+  });
+});
+
+
 app.listen(8081, () => {
   console.log('Listening on port 8081');
 });
