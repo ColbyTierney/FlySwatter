@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useUser } from '../UserContext';
 import Sidebar from '../components/Sidebar';
 import axios from 'axios';
@@ -25,6 +25,10 @@ function Dashboard() {
         console.error('Error fetching invites:', error);
       });
   };
+
+  useEffect(() => {
+    fetchInvites(); // Fetch invites when component mounts
+  }, []); // Empty dependency array ensures it runs only once on mount
   
   // Modify getProjectName function to return a Promise
   const getProjectName = (projectId) => {
