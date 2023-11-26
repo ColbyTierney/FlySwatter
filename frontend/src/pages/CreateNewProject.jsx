@@ -37,7 +37,7 @@ function CreateNewProject() {
       <form onSubmit={handleCreateProject}>
         <label> Project Name: </label>
          <div> 
-          <input className='project-name'
+          <input className='projectname'
             type="text"
             value={projectName}
             onChange={(e) => setProjectName(e.target.value)}
