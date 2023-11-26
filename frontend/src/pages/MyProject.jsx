@@ -330,13 +330,13 @@ const MyProjects = () => {
                 {member}
                 {isAdminOrOwner && member !== username && (
                   <>
-                  {checkAdminStatus(member, projectID) ? (
+                  {adminStatusArray[member] ? (
                     <button onClick={() => handleDemote(member)}>
-                      Demote
+                      <span>Admin</span> Demote
                     </button>
                   ) : (
                     <button onClick={() => handlePromote(member)}>
-                      Promote
+                      <span>Member</span>Promote
                     </button>
                     )}
                   </>
