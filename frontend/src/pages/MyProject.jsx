@@ -533,7 +533,7 @@ const MyProjects = () => {
         <ul>
           {tickets.map((ticket) => (
             <li key={ticket.Ticket_ID}>
-              <button onClick={() => handleTicketClick(ticket)}>
+              <button class="ticket-button" onClick={() => handleTicketClick(ticket)}>
                 {ticket.Ticket_Name}
               </button>
             </li>

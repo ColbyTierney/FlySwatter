@@ -110,3 +110,15 @@
   width: 30%; 
   margin-bottom: 4%;
 }
+
+.ticket-button {
+  position: fixed;
+  background-color: #311e50; /* Blue button color */
+  width: 12%; 
+  height: 8%; 
+  color: #fff; /* White text color */
+  border: none; /* No border */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Cursor style on hover */
+  font-size: 100%;
+}
