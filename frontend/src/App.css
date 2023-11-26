@@ -9,7 +9,11 @@
     color: white;
     background-image: linear-gradient(79deg, #cd11e6b7, #f62237d3 48%, #ffb637cf);;
   }
-  
+  ul, ol {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
   .auth-form-container {
     display: flex;
     flex-direction: column;
