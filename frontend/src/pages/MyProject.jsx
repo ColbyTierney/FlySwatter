@@ -18,6 +18,7 @@ const MyProjects = () => {
   const [isAdminOrOwner, setIsAdminOrOwner] = useState(false);
   const [projectMembers, setProjectMembers] = useState([]);
   const [membersVisible, setMembersVisible] = useState(false);
+  const [adminStatusArray, setAdminStatusArray] = useState({});
   const [inviteError, setInviteError] = useState(null);
   const [inviteDetails, setInviteDetails] = useState({
     sender: username,
@@ -91,7 +92,6 @@ const MyProjects = () => {
       console.error('Error fetching project members', error);
     });
   };
-  
 
   const handleDemote = (member) => {
     fetch('http://localhost:8081/demoteUser', {
@@ -160,6 +160,25 @@ const MyProjects = () => {
       console.error('Error checking admin status:', error);
       return false;
     }
+  };
+
+  const fetchAdminStatusForMembers = () => {
+    const adminStatusPromises = projectMembers.map((member) => {
+      return checkAdminStatus(member, projectID);
+    });
+
+    Promise.all(adminStatusPromises)
+    .then((adminStatusArray) => {
+      const adminStatusObject = {};
+      projectMembers.forEach((member, index) => {
+        adminStatusObject[member] = adminStatusArray[index];
+      });
+
+      setAdminStatusArray(adminStatusObject);
+    })
+    .catch((error) => {
+      console.error('Error fetching admin status:', error);
+    });
   };
 
   const sendInvite = (close) => {
