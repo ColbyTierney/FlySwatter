@@ -70,7 +70,7 @@ function CreateTicket({close, handleTicketAdded}) {
           }
         })
         .catch((error) => {
-          setErrorMessage('Network error. Please try again.');
+          setErrorMessage('Network error: ', error);
           setSuccessMessage('');
         });
     }

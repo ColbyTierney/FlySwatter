@@ -529,7 +529,7 @@ const MyProjects = () => {
           </div>
         )}
         {isAdminOrOwner && (
-          <button onClick={handleDeleteTicket}>Delete Ticket</button>
+          <button class="delete-ticket" onClick={handleDeleteTicket}>Delete Ticket</button>
         )}
       </Popup>
     </div>
