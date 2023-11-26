@@ -102,3 +102,11 @@
     bottom: 50%;
     font-size: 100%;
 }
+
+.delete-ticket {
+  background-color: #bd0404; /* Blue button color */
+  color: #fff; /* White text color */
+  border-radius: 5px; /* Rounded corners */
+  width: 30%; 
+  margin-bottom: 4%;
+}
