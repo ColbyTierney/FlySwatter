@@ -3,15 +3,10 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 const UserContext = createContext();
 
 export function UserProvider({ children }) {
-  const [username, setUsername] = useState('');
-
-  // Load the username from localStorage when the component mounts
-  useEffect(() => {
-    const savedUsername = localStorage.getItem('username');
-    if (savedUsername) {
-      setUsername(savedUsername);
-    }
-  }, []);
+  const [username, setUsername] = useState(() => {
+    // Load the username from localStorage when the component mounts
+    return localStorage.getItem('username') || '';
+  });
 
   const logout = () => {
     setUsername(''); // Clear user data in the component state
