@@ -407,7 +407,7 @@ app.post('/promoteUser', (req, res) => {
 app.post('/demoteUser', (req, res) => {
   const { username, projectId } = req.body;
 
-  if (!username || !ProjectId) {
+  if (!username || !projectId) {
     return res.status(400).json({ error: 'Username and ProjectId are required' });
   }
 
