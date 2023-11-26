@@ -311,31 +311,46 @@ Note: Beware of modifying this element as it can break the animations - you shou
     border: none;
     border-radius: 3px;
     cursor: pointer;
+    position: relative;
+    left: -10%;
   }
   
-  .accept-btn,
-  .deny-btn {
-    padding: 5px 10px;
+  .accept-btn{
+    padding: .2% 1%;
     margin-left: 10px;
+    margin-bottom: 10px;
     background-color: #2ecc71;
     color: white;
-    border: none;
-    border-radius: 3px;
+    border-radius: 3%;
     cursor: pointer;
     position: relative;
-    right: -100px;
+    right: -65%;
+  }
+
+  .deny-btn {
+    padding: .2% 1%;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    background-color: #cc2e2e;
+    color: white;
+    border-radius: 3%;
+    cursor: pointer;
+    position: relative;
+    right: -65%;
   }
   .sender {
     font-weight: bold;
-    color: #333; /* Adjust color as needed */
-    position: relative;
+    color: #000000; /* Adjust color as needed */
+    position: fixed;
+    right: 60%;
   }
-  
+ 
   .project-id {
-    color: #777; /* Adjust color as needed */
+    font-weight: bold;
+    color: #000000; /* Adjust color as needed */
     margin-left: 10px; /* Add margin to separate Sender and Project ID */
-    position: relative;
-    right: -50px;
+    position: fixed;
+    right: 50%;
   }
 
 .welcome-message{
@@ -344,14 +359,25 @@ Note: Beware of modifying this element as it can break the animations - you shou
   left: 50%; /* Align the message horizontally at 50% */
   transform: translateX(-50%);
 }
-
+.invite-container ul {
+  list-style-type: none; /* Removes default bullet points */
+  padding: 0; /* Remove default padding */
+  margin: 0; /* Remove default margin */
+}
 .invite-container{
-  background-color: white;
-  padding: 150px 300px;
-  border-radius: 8px;
-  width: 80%;
+  background-color: rgba(164, 196, 212, 0.576);
+  padding: 5%;
+  width: 30%;
   margin: 0 auto;
-  position: relative;
-  top: 150px;
-  left: -250px;
+  position: fixed;
+  top: 30%;
+  left: 35%;
+  overflow-y: auto;
+}
+
+.invite{
+  color:#333;
+  position: absolute;
+  top: 5%;
+  left: 5%;
 }

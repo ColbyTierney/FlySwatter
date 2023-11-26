@@ -11,19 +11,21 @@
     background: rgb(85, 129, 98);
     padding: 2.5em 1.5em 0;
     font-size: 1.15em;
-    border-radius: 10px;
+    border-radius: 10;
   }
 
   .create-ticket {
     position: fixed;
-    left: 10%;
+    left: 20%;
     top: 15%;
     background-color: #000000; /* Blue button color */
     color: #fff; /* White text color */
-    padding: 10px 30px; /* Padding for the button */
+    padding: 0.5% 1.5%; /* Padding for the button */
     border: none; /* No border */
     border-radius: 5px; /* Rounded corners */
     cursor: pointer; /* Cursor style on hover */
+    font-size: 100%;
+
   }
   
   .create-ticket:hover {
@@ -40,11 +42,14 @@
     cursor: pointer; /* Cursor style on hover */
     right: 25%;
     top: 15%;
+    font-size: 100%;
   }
 
   .sort-by {
     position: fixed;
-    top: 200;
+    padding: .5% 1.5%;
+    top: 15%;
+    font-size: 100%;
   }
 
   .error-message {
@@ -62,18 +67,20 @@
     cursor: pointer; /* Cursor style on hover */
     right: 10%;
     top: 15%;
+    font-size: 100%;
   }
   .project-name {
     position: fixed;
     color: #fff;
     top: 5%;
+    transform: translateX(-2.5%);
     background: none !important; /* Remove background */
     border: none !important; /* Remove border */
     outline: none !important; /* Remove outline */
     box-shadow: none !important; /* Remove box shadow */
     -webkit-box-shadow: none !important; /* Remove box shadow for older webkits */
     -moz-box-shadow: none !important; /* Remove box shadow for older Firefox */
-    font-size: 40px; /* Change font size */
+    font-size: 250%; /* Change font size */
 }
 
 

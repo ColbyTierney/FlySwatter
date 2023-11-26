@@ -10,13 +10,33 @@ function Dashboard() {
   const fetchInvites = () => {
     axios.post('http://localhost:8081/getInvites', { receiver: username })
       .then(response => {
-        setInvites(response.data);
+        const updatedInvites = response.data.map(async invite => {
+          const projectName = await getProjectName(invite.ProjectID);
+          return {
+            ...invite,
+            projectName: projectName || 'Unknown Project', // Default name if fetching fails
+          };
+        });
+        Promise.all(updatedInvites).then(invitesWithProjectNames => {
+          setInvites(invitesWithProjectNames);
+        });
       })
       .catch(error => {
         console.error('Error fetching invites:', error);
       });
   };
-
+  
+  // Modify getProjectName function to return a Promise
+  const getProjectName = (projectId) => {
+    return axios.post('http://localhost:8081/getProjectName', { projectID: projectId })
+      .then(response => {
+        return response.data.projectName;
+      })
+      .catch(error => {
+        console.error('Error fetching project name:', error);
+        return null;
+      });
+  };
   const acceptInvite = (inviteId, projectId) => {
     axios.post('http://localhost:8081/addusertoproject', { projectId, username })
       .then(response => {
@@ -27,7 +47,6 @@ function Dashboard() {
         console.error('Error accepting invite:', error);
       });
   };
-
   const denyInvite = (inviteId) => {
     removeInvite(inviteId);
   };
@@ -51,15 +70,16 @@ function Dashboard() {
         <h1 className="welcome-message">Welcome, {username || 'Guest'}</h1>
         
         <div className="invite-container">
+        <h2 className="invite">Your Invitations</h2>
           <button className="show-invites-btn" onClick={fetchInvites}>Refresh</button>
           {invites.length > 0 && (
             <div>
-              <h2>Invites:</h2>
+              
             <ul>
               {invites.map(invite => (
                 <li key={invite.InviteID}>
                   <span className="sender">{invite.Sender}</span>
-                  <span className="project-id">{invite.ProjectID}</span>
+                  <span className="project-id">{invite.projectName}</span>
                   <div className="button-container">
                     <button className="accept-btn" onClick={() => acceptInvite(invite.InviteID, invite.ProjectID)}>Accept</button>
                     <button className="deny-btn" onClick={() => denyInvite(invite.InviteID)}>Deny</button>
