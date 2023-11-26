@@ -65,7 +65,10 @@ const MyProjects = () => {
     setSelectedTicket(null);
   }  
   const handleDelete = () => {
-    // Perform the delete logic directly within this function
+    const confirmProjectDelete = window.confirm('Are you sure you want to delete this project?');
+
+    if (confirmProjectDelete) {
+      // Perform the delete logic directly within this function
     fetch('http://localhost:8081/deleteProject', {
       method: 'POST',
       headers: {
@@ -83,10 +86,14 @@ const MyProjects = () => {
         console.error('Error deleting project:', error);
         // Handle error scenarios
       });
+    }
   };
 
   const handleDeleteTicket = () => {
-    // Perform the delete logic directly within this function
+    const confirmTicketDelete = window.confirm('Are you sure you want to delete this ticket?');
+    
+    if (confirmTicketDelete) {
+      // Perform the delete logic directly within this function
     console.log("selected Ticket ID: ", selectedTicket.Ticket_ID);
     fetch('http://localhost:8081/deleteTicket', {
       method: 'POST',
@@ -108,6 +115,8 @@ const MyProjects = () => {
         console.error('Error deleting ticket:', error);
         // Handle error scenarios
       });
+    }
+    
   };
 
   const handleLeave = () => {
