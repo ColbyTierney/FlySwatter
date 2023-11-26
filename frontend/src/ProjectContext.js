@@ -1,11 +1,19 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 
 // Create the ProjectContext
 const ProjectContext = createContext();
 
 // Create a ProjectProvider component to wrap your app
 const ProjectProvider = ({ children }) => {
-  const [projectID, setProjectID] = useState(null);
+  // Check if there's a projectID in localStorage, otherwise default to null
+  const [projectID, setProjectID] = useState(
+    localStorage.getItem('projectID') || null
+  );
+
+  // Update localStorage whenever projectID changes
+  useEffect(() => {
+    localStorage.setItem('projectID', projectID);
+  }, [projectID]);
 
   return (
     <ProjectContext.Provider value={{ projectID, setProjectID }}>
