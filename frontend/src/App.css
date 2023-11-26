@@ -342,7 +342,7 @@ Note: Beware of modifying this element as it can break the animations - you shou
     font-weight: bold;
     color: #000000; /* Adjust color as needed */
     position: fixed;
-    right: 58%;
+    right: 62%;
   }
  
   .project-id {
