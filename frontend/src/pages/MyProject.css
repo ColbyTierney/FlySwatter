@@ -16,11 +16,12 @@
 
   .create-ticket {
     position: fixed;
-    left: 20%;
-    top: 15%;
-    background-color: #000000; /* Blue button color */
+    right: 5%;
+    bottom: 80%;
+    background-color: rgb(48, 136, 48); /* Blue button color */
     color: #fff; /* White text color */
-    padding: 0.5% 1.5%; /* Padding for the button */
+    width: 12%; 
+    height: 8%; 
     border: none; /* No border */
     border-radius: 5px; /* Rounded corners */
     cursor: pointer; /* Cursor style on hover */
@@ -34,14 +35,16 @@
 
   .send-invite-button {
     position: fixed;
-    background-color: #194279; /* Blue button color */
+    background-color: rgb(35, 112, 148); /* Blue button color */
     color: #fff; /* White text color */
-    padding: 0.5% 1.5%; /* Padding for the button */
     border: none; /* No border */
+    width: 12%; 
+    height: 8%; 
     border-radius: 5px; /* Rounded corners */
     cursor: pointer; /* Cursor style on hover */
-    right: 25%;
-    top: 15%;
+    right: 5%;
+    align-items: center;
+    bottom: 60%;
     font-size: 100%;
   }
 
@@ -61,21 +64,22 @@
 
   .show-members-button {
     position: fixed;
-    background-color: #194279; /* Blue button color */
+    background-color: #311e50; /* Blue button color */
+    width: 12%; 
+    height: 8%; 
     color: #fff; /* White text color */
-    padding: 0.5% 1.5%; /* Padding for the button */
     border: none; /* No border */
     border-radius: 5px; /* Rounded corners */
     cursor: pointer; /* Cursor style on hover */
-    right: 10%;
-    top: 15%;
+    right: 5%;
+    bottom: 70%;
     font-size: 100%;
   }
   .project-name {
     position: fixed;
     color: #fff;
-    top: 5%;
-    right: 46%;
+    right: 5%;
+    bottom: 90%;
     background: none !important; /* Remove background */
     border: none !important; /* Remove border */
     outline: none !important; /* Remove outline */
@@ -87,13 +91,14 @@
 
   .delete-project-button {
     position: fixed;
-    background-color: #194279; /* Blue button color */
+    background-color: #bd0404; /* Blue button color */
     color: #fff; /* White text color */
-    padding: 0.5% 1.5%; /* Padding for the button */
+    width: 12%; 
+    height: 8%; 
     border: none; /* No border */
     border-radius: 5px; /* Rounded corners */
     cursor: pointer; /* Cursor style on hover */
-    right: 10%;
-    top: 25%;
+    right: 5%;
+    bottom: 50%;
     font-size: 100%;
 }
