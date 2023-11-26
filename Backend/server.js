@@ -537,13 +537,13 @@ app.post('/leaveProject', (req, res) => {
 });
 
 app.post('/deleteTicket', (req, res) => {
-  const ticketId = req.body.ticketId; // 
+  const{ ticketId } = req.body;  
 
   if (!ticketId) {
     return res.status(400).json({ error: 'Ticket ID is required' });
   }
 
-  const deleteTicketSql = 'DELETE FROM Tickets WHERE TicketID = ?';
+  const deleteTicketSql = 'DELETE FROM Tickets WHERE Ticket_ID = ?';
   db.query(deleteTicketSql, [ticketId], (deleteTicketErr, deleteTicketResult) => {
     if (deleteTicketErr) {
       return res.status(500).json(deleteTicketErr);

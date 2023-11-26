@@ -77,6 +77,27 @@ const MyProjects = () => {
       });
   };
 
+  const handleDeleteTicket = () => {
+    // Perform the delete logic directly within this function
+    console.log("selected Ticket ID: ", selectedTicket.Ticket_ID);
+    fetch('http://localhost:8081/deleteTicket', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ ticketId: selectedTicket.Ticket_ID }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data.message); // Log the delete message
+        // Additional actions to perform after successful deletion
+      })
+      .catch((error) => {
+        console.error('Error deleting ticket:', error);
+        // Handle error scenarios
+      });
+  };
+
   const handleLeave = () => {
     // Perform the delete logic directly within this function
     fetch('http://localhost:8081/leaveProject', {
@@ -491,8 +512,10 @@ const MyProjects = () => {
             <p>Status: {selectedTicket.Status}</p>
             <p>Priority: {selectedTicket.Priority}</p>
             <p>Date Opened: {selectedTicket.Date_Opened}</p>
-            <p>Project ID: {selectedTicket.Project_ID}</p>
           </div>
+        )}
+        {isAdminOrOwner && (
+          <button onClick={handleDeleteTicket}>Delete Ticket</button>
         )}
       </Popup>
     </div>
