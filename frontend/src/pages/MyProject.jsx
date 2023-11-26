@@ -91,6 +91,9 @@ const MyProjects = () => {
       .then((data) => {
         console.log(data.message); // Log the delete message
         // Additional actions to perform after successful deletion
+        setTickets((prevTickets) =>
+        prevTickets.filter((ticket) => ticket.Ticket_ID !== selectedTicket.Ticket_ID)
+        );
       })
       .catch((error) => {
         console.error('Error deleting ticket:', error);
