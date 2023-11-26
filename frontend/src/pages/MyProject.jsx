@@ -131,6 +131,27 @@ const MyProjects = () => {
       });
   };
 
+  const handleKick = (member) => {
+    // Perform the delete logic directly within this function
+    fetch('http://localhost:8081/leaveProject', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ username: member, projectId: projectID }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data.message); // Log the delete message
+        // Additional actions to perform after successful deletion
+        console.log("Successfully kicked member");
+      })
+      .catch((error) => {
+        console.error('Error kicking from project:', error);
+        // Handle error scenarios
+      });
+  };
+
   useEffect(() => {
     const checkAdminOrOwner = async () => {
       try {
@@ -470,6 +491,9 @@ const MyProjects = () => {
                 <span>Admin</span> Demote
           </button>
         )}
+        <button onClick={() => handleKick(member)}>
+          Kick
+        </button>
       </>
     )}
   </li>
