@@ -324,7 +324,7 @@ Note: Beware of modifying this element as it can break the animations - you shou
     border-radius: 3%;
     cursor: pointer;
     position: relative;
-    right: -55%;
+    right: -65%;
   }
 
   .deny-btn {
@@ -336,13 +336,13 @@ Note: Beware of modifying this element as it can break the animations - you shou
     border-radius: 3%;
     cursor: pointer;
     position: relative;
-    right: -55%;
+    right: -65%;
   }
   .sender {
     font-weight: bold;
     color: #000000; /* Adjust color as needed */
     position: fixed;
-    right: 62%;
+    right: 60%;
   }
  
   .project-id {
