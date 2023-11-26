@@ -12,8 +12,13 @@ const Sidebar = () => {
   };
 
   const handleLogout = (to) => {
-    setUsername(''); // Set the username to an empty string when logging out
-    navigate(to);
+    const confirmLogout = window.confirm('Are you sure you want to log out?');
+
+    if (confirmLogout) {
+      setUsername(''); // Set the username to an empty string when logging out
+      navigate(to);
+    }
+    
   };
 
   return (

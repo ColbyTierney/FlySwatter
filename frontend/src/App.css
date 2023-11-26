@@ -314,6 +314,12 @@ Note: Beware of modifying this element as it can break the animations - you shou
     position: relative;
     left: -10%;
   }
+
+  .show-invites-btn:active {
+    background-color: #2980b9; /* Change color on click */
+    position: relative;
+    top: 2px; /* Slight shift downward on click */
+  }
   
   .accept-btn{
     padding: .2% 1%;
