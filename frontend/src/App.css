@@ -324,7 +324,7 @@ Note: Beware of modifying this element as it can break the animations - you shou
     border-radius: 3%;
     cursor: pointer;
     position: relative;
-    right: -40%;
+    right: -55%;
   }
 
   .deny-btn {
@@ -336,7 +336,7 @@ Note: Beware of modifying this element as it can break the animations - you shou
     border-radius: 3%;
     cursor: pointer;
     position: relative;
-    right: -40%;
+    right: -55%;
   }
   .sender {
     font-weight: bold;
@@ -350,7 +350,7 @@ Note: Beware of modifying this element as it can break the animations - you shou
     color: #000000; /* Adjust color as needed */
     margin-left: 10px; /* Add margin to separate Sender and Project ID */
     position: fixed;
-    right: 52.5%;
+    right: 50%;
   }
 
 .welcome-message{
