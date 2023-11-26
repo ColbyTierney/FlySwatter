@@ -28,7 +28,7 @@ function Dashboard() {
 
   useEffect(() => {
     fetchInvites(); // Fetch invites when component mounts
-  }, []); // Empty dependency array ensures it runs only once on mount
+  }, [fetchInvites]); // Empty dependency array ensures it runs only once on mount
   
   // Modify getProjectName function to return a Promise
   const getProjectName = (projectId) => {
