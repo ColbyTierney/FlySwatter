@@ -487,7 +487,7 @@ app.post('/deleteProject', (req, res) => {
     return res.status(400).json({ error: 'Project ID is required' });
   }
 
-  const deleteInvitesSql = 'DELETE FROM Invites WHERE Project_ID = ?';
+  const deleteInvitesSql = 'DELETE FROM Invites WHERE ProjectID = ?';
   db.query(deleteInvitesSql, [projectId], (deleteInvitesErr, deleteInvitesResult) => {
     if (deleteInvitesErr) {
       return res.status(500).json(deleteInvitesErr);

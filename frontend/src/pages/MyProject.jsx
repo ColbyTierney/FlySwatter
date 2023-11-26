@@ -16,6 +16,7 @@ const MyProjects = () => {
   const [sortCriteria, setSortCriteria] = useState('priority');
   const { username } = useUser();
   const [isAdminOrOwner, setIsAdminOrOwner] = useState(false);
+  const [isOwner, setIsOwner] = useState(false);
   const [projectMembers, setProjectMembers] = useState([]);
   const [membersVisible, setMembersVisible] = useState(false);
   const [adminStatusArray, setAdminStatusArray] = useState({});
@@ -25,6 +26,56 @@ const MyProjects = () => {
     receiver: '',
     projectId: projectID,
   });
+
+  useEffect(() => {
+    const checkIsOwner = async () => {
+      try {
+        const response = await fetch('http://localhost:8081/isOwner', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            username: username,
+            projectId: projectID,
+          }),
+        });
+
+        if (!response.ok) {
+          console.error('Failed to check ownership status');
+          return false;
+        }
+
+        const data = await response.json();
+        setIsOwner(data.isOwner);
+      } catch (error) {
+        console.error('Error checking ownership status:', error);
+        setIsOwner(false);
+      }
+    };
+
+    checkIsOwner();
+  }, [username, projectID]);
+  
+  const handleDelete = () => {
+    // Perform the delete logic directly within this function
+    fetch('http://localhost:8081/deleteProject', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ projectId: projectID }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data.message); // Log the delete message
+        // Additional actions to perform after successful deletion
+      })
+      .catch((error) => {
+        console.error('Error deleting project:', error);
+        // Handle error scenarios
+      });
+  };
 
   useEffect(() => {
     const checkAdminOrOwner = async () => {
@@ -118,6 +169,7 @@ const MyProjects = () => {
       .then((data) => {
         console.log('User demoted successfully:', data);
         // Fetch updated project members after demotion
+        fetchAdminStatusForMembers();
         fetchProjectMembers();
       })
       .catch((error) => {
@@ -140,6 +192,7 @@ const MyProjects = () => {
       .then((data) => {
         console.log('User promoted successfully:', data);
         // Fetch updated project members after promotion
+        fetchAdminStatusForMembers();
         fetchProjectMembers();
       })
       .catch((error) => {
@@ -313,7 +366,7 @@ const MyProjects = () => {
         return data;
     }
   };
-  
+
   return (
     <div>
       <Sidebar />
@@ -329,6 +382,13 @@ const MyProjects = () => {
       <button className="create-ticket" onClick={() => setVisible(true)}>
         Create Ticket
       </button>
+
+      {isOwner && (
+        <button className="delete-project-button" onClick={handleDelete}>
+          Delete Project
+        </button>
+      )}
+
       <Popup open={visible} onClose={() => setVisible(false)}>
         {Createticket}
       </Popup>
@@ -340,7 +400,7 @@ const MyProjects = () => {
           {projectMembers && projectMembers.map((member) => (
           <li key={member}>
           {member}
-          {isAdminOrOwner && member !== username && (
+          {isOwner && member !== username && (
             <>
               {adminStatusArray[member] === 0 ? (
                 <button onClick={() => handlePromote(member)}>
