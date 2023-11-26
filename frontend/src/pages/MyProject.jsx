@@ -4,10 +4,12 @@ import { useProject } from '../ProjectContext';
 import { useUser } from '../UserContext';
 import Popup from 'reactjs-popup';
 import Createticket from './CreateTicket';
+import { useNavigate } from 'react-router-dom';
 import './MyProject.css';
 
 const MyProjects = () => {
   const { projectID } = useProject();
+  const navigate = useNavigate();
   const [projectName, setProjectName] = useState(''); // State to store the project name
   const [tickets, setTickets] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -40,7 +42,8 @@ const MyProjects = () => {
             projectId: projectID,
           }),
         });
-
+        console.log("username:", username);
+        console.log("PojectID:", projectID);
         if (!response.ok) {
           console.error('Failed to check ownership status');
           return false;
@@ -56,7 +59,11 @@ const MyProjects = () => {
 
     checkIsOwner();
   }, [username, projectID]);
-  
+
+  const handleCreateTicketClose = () => {
+    setVisible(false);
+    setSelectedTicket(null);
+  }  
   const handleDelete = () => {
     // Perform the delete logic directly within this function
     fetch('http://localhost:8081/deleteProject', {
@@ -70,6 +77,7 @@ const MyProjects = () => {
       .then((data) => {
         console.log(data.message); // Log the delete message
         // Additional actions to perform after successful deletion
+        navigate('/Projects');
       })
       .catch((error) => {
         console.error('Error deleting project:', error);
@@ -115,6 +123,7 @@ const MyProjects = () => {
       .then((data) => {
         console.log(data.message); // Log the delete message
         // Additional actions to perform after successful deletion
+        navigate('/Projects');
       })
       .catch((error) => {
         console.error('Error leaving project:', error);
@@ -293,6 +302,7 @@ const MyProjects = () => {
 
   const sendInvite = (close) => {
     setInviteError(null);
+    console.log("invite details: ", inviteDetails);
 
     fetch('http://localhost:8081/checkUserInProject', {
       method: 'POST',
@@ -438,7 +448,7 @@ const MyProjects = () => {
         </button>
       )}
 
-      <Popup open={visible} onClose={() => setVisible(false)}>
+      <Popup open={visible} onClose={() => handleCreateTicketClose}>
         {Createticket}
       </Popup>
       <button className="show-members-button" onClick={fetchProjectMembers}>Show Members</button>

@@ -5,7 +5,7 @@ import { useProject } from '../ProjectContext';
 import { useNavigate } from 'react-router-dom';
 import './CreateTicket.css';
 
-function CreateTicket() {
+function CreateTicket({close, handleTicketAdded}) {
   const { username } = useUser();
   const { projectID } = useProject();
   const navigate = useNavigate();
@@ -60,6 +60,7 @@ function CreateTicket() {
               createdBy: username,
               projectId: projectID,
             });
+            window.location.reload();
             navigate('/MyProject');
           } else {
             response.json().then((data) => {

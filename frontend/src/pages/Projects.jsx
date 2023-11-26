@@ -14,11 +14,14 @@ function Projects() {
   const [error, setError] = useState(null);
   const [visible, setVisible] = useState(false);
   const navigate = useNavigate();
-
   const projectContext = useProject();
   const { setProjectID: updateProjectID } = projectContext;
   const [selectedProject, setSelectedProject] = useState('');
   const [submitMessage, setSubmitMessage] = useState('');
+
+  const handleSubmitProjectClose = () => {
+    setVisible(false);
+  }
 
   useEffect(() => {
     fetch('http://localhost:8081/getProjectID', {
@@ -59,7 +62,7 @@ function Projects() {
       <Sidebar username={username} />
       <div className="top-right-button">
         <button className='create-project-button' onClick={()=>setVisible(true)}>Create Project</button>
-          <Popup open={visible} onClose={()=>setVisible(false)}>
+          <Popup open={visible} onClose={()=>handleSubmitProjectClose}>
             {CreateNewProject}
           </Popup>
       </div>
