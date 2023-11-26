@@ -448,7 +448,7 @@ const MyProjects = () => {
         </button>
       )}
 
-      <Popup open={visible} onClose={() => handleCreateTicketClose}>
+      <Popup open={visible} onClose={() => handleCreateTicketClose()}>
         {Createticket}
       </Popup>
       <button className="show-members-button" onClick={fetchProjectMembers}>Show Members</button>
@@ -495,7 +495,6 @@ const MyProjects = () => {
         />
         {inviteError && <div className="error-message">{inviteError}</div>}
         <button onClick={() => { sendInvite(close); }}>Send Invite</button>
-        <button className="send-invite-close-button"onClick={close}>Close</button>
         </div>
         )}
 </Popup>
