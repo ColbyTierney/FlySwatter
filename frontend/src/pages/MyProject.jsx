@@ -74,23 +74,33 @@ const MyProjects = () => {
   };
 
   const fetchProjectMembers = () => {
-    console.log("Project ID:", projectID);
     fetch('http://localhost:8081/getUsers', {
       method: 'POST',
       headers: {
-        'Content-Type' : 'application/json',
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify({projectId: projectID}),
+      body: JSON.stringify({ projectId: projectID }),
     })
-    .then((response) => response.json())
-    .then((data) => {
-      setProjectMembers(data.usernames);
-      console.log("Members: ", data.usernames);
-      setMembersVisible(true);
-    })
-    .catch((error) => {
-      console.error('Error fetching project members', error);
-    });
+      .then((response) => response.json())
+      .then((data) => {
+        // Assuming the response data is in the format: { usersWithAdminStatus: [{ username: 'user1', isAdmin: true }, { username: 'user2', isAdmin: false }, ...] }
+        const usersWithAdminStatus = data.usersWithAdminStatus || [];
+
+        const usernames = usersWithAdminStatus.map((user) => user.username);
+        const adminStatusArray = {};
+
+        // Create an object with usernames as keys and their corresponding isAdmin status as values
+        usersWithAdminStatus.forEach((user) => {
+          adminStatusArray[user.username] = user.isAdmin;
+        });
+
+        setProjectMembers(usernames);
+        setAdminStatusArray(adminStatusArray);
+        setMembersVisible(true);
+      })
+      .catch((error) => {
+        console.error('Error fetching project members', error);
+      });
   };
 
   const handleDemote = (member) => {
@@ -104,16 +114,17 @@ const MyProjects = () => {
         projectId: projectID,
       }),
     })
-    .then((response) => response.json())
-    .then((data) => {
-      console.log('User demoted successfully:', data);
-      fetchProjectMembers();
-    })
-    .catch((error) => {
-      console.error('Error demoting user:', error);
-    });
+      .then((response) => response.json())
+      .then((data) => {
+        console.log('User demoted successfully:', data);
+        // Fetch updated project members after demotion
+        fetchProjectMembers();
+      })
+      .catch((error) => {
+        console.error('Error demoting user:', error);
+      });
   };
-
+  
   const handlePromote = (member) => {
     fetch('http://localhost:8081/promoteUser', {
       method: 'POST',
@@ -125,14 +136,15 @@ const MyProjects = () => {
         projectId: projectID,
       }),
     })
-    .then((response) => response.json())
-    .then((data) => {
-      console.log('User promoted successfully:', data);
-      fetchProjectMembers();
-    })
-    .catch((error) => {
-      console.error('Error promoting user:', error);
-    });
+      .then((response) => response.json())
+      .then((data) => {
+        console.log('User promoted successfully:', data);
+        // Fetch updated project members after promotion
+        fetchProjectMembers();
+      })
+      .catch((error) => {
+        console.error('Error promoting user:', error);
+      });
   };
 
 
@@ -325,24 +337,24 @@ const MyProjects = () => {
         <div>
           <h2> Project Members</h2>
           <ul>
-            {projectMembers && projectMembers.map((member) => (
-              <li key={member}>
-                {member}
-                {isAdminOrOwner && member !== username && (
-                  <>
-                  {adminStatusArray[member] ? (
-                    <button onClick={() => handleDemote(member)}>
-                      <span>Admin</span> Demote
-                    </button>
-                  ) : (
-                    <button onClick={() => handlePromote(member)}>
-                      <span>Member</span> Promote
-                    </button>
-                    )}
-                  </>
-                )}
-                </li>
-            ))}
+          {projectMembers && projectMembers.map((member) => (
+          <li key={member}>
+          {member}
+          {isAdminOrOwner && member !== username && (
+            <>
+              {adminStatusArray[member] === 0 ? (
+                <button onClick={() => handlePromote(member)}>
+                  Promote
+                </button>
+            ) : (
+              <button onClick={() => handleDemote(member)}>
+                Demote
+          </button>
+        )}
+      </>
+    )}
+  </li>
+))}
           </ul>
         </div>
       </Popup>
