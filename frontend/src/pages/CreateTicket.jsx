@@ -19,6 +19,13 @@ function CreateTicket() {
     createdBy: username,
     projectId: projectID,
   });
+  const getCurrentESTDate = () => {
+    const now = new Date();
+    const estOffset = -5 * 60 * 60 * 1000; // Eastern Standard Time (EST) is UTC-5
+    const estNow = new Date(now.getTime() + estOffset); // Adjust the time to EST
+    const estDateString = estNow.toISOString().split('T')[0]; // Returns the date in ISO format (YYYY-MM-DD)
+    return estDateString;
+  };
 
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
@@ -49,7 +56,7 @@ function CreateTicket() {
               description: '',
               status: 'Open',
               priority: '', // Reset priority to an empty string
-              dateOpened: new Date().toISOString().split('T')[0],
+              dateOpened: getCurrentESTDate(),
               createdBy: username,
               projectId: projectID,
             });
@@ -119,10 +126,10 @@ function CreateTicket() {
           <div>
             <input
               className='ticket-input'
-              type="date"
+              type="text"
               name="dateOpened"
-              value={ticketData.dateOpened}
-              onChange={handleInputChange}
+              value={getCurrentESTDate()}
+              readOnly
             />
           </div>
         </div>
