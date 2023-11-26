@@ -62,7 +62,7 @@ function Projects() {
       <Sidebar username={username} />
       <div className="top-right-button">
         <button className='create-project-button' onClick={()=>setVisible(true)}>Create Project</button>
-          <Popup open={visible} onClose={()=>handleSubmitProjectClose}>
+          <Popup open={visible} onClose={()=>handleSubmitProjectClose()}>
             {CreateNewProject}
           </Popup>
       </div>
