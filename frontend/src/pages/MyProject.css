@@ -49,6 +49,7 @@
     position: fixed;
     padding: .5% 1.5%;
     top: 15%;
+    right: 46%;
     font-size: 100%;
   }
 
@@ -73,6 +74,7 @@
     position: fixed;
     color: #fff;
     top: 5%;
+    right: -43%;
     transform: translateX(-2.5%);
     background: none !important; /* Remove background */
     border: none !important; /* Remove border */

@@ -94,6 +94,7 @@ const MyProjects = () => {
         setTickets((prevTickets) =>
         prevTickets.filter((ticket) => ticket.Ticket_ID !== selectedTicket.Ticket_ID)
         );
+        setSelectedTicket(null);
       })
       .catch((error) => {
         console.error('Error deleting ticket:', error);
