@@ -336,7 +336,7 @@ const MyProjects = () => {
                     </button>
                   ) : (
                     <button onClick={() => handlePromote(member)}>
-                      <span>Member</span>Promote
+                      <span>Member</span> Promote
                     </button>
                     )}
                   </>
