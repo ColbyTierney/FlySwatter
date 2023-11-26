@@ -366,7 +366,7 @@ app.post('/getUsers', (req, res) => {
     return res.status(400).json({ error: 'Project_ID is required' });
   }
 
-  const sql = 'SELECT Usernames FROM Projects WHERE Project_ID = ?';
+  const sql = 'SELECT Usernames, Admin FROM Projects WHERE Project_ID = ?';
   db.query(sql, [projectId], (err, data) => {
     if (err) {
       return res.status(500).json({ error: 'Database error' });
