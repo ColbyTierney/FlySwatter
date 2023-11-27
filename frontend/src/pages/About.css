@@ -1,0 +1,19 @@
+.image {
+  margin-right: 20px;
+}
+
+.image-container {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+
+.image-header {
+  text-align: center;
+  font-size: large;
+}
+
+.image-text {
+  font-size: small;
+  text-align: left;
+}
