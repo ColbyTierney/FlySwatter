@@ -139,7 +139,7 @@
 .ticket-button {
   position: relative;
   background-color: #371c61; /* Blue button color */
-  width: 125%; 
+  width: 150%; 
   height: auto;
   top: 100%;
   left: center;
@@ -148,5 +148,5 @@
   border: none; /* No border */
   border-radius: 20px; /* Rounded corners */
   cursor: pointer; /* Cursor style on hover */
-  font-size: 200%;
+  font-size: 120%;
 }
