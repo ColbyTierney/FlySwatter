@@ -23,7 +23,7 @@
     width: 12%; 
     height: 8%; 
     border: none; /* No border */
-    border-radius: 5px; /* Rounded corners */
+    border-radius: 15px;
     cursor: pointer; /* Cursor style on hover */
     font-size: 100%;
 
@@ -32,7 +32,21 @@
   .create-ticket:hover {
     background-color: #000000; /* Darker blue on hover */
   }
-
+  .create-ticket:hover {
+    background-color: #000000; /* Darker blue on hover */
+  }
+  .show-members-button:hover {
+    background-color: #000000; /* Darker blue on hover */
+  }
+  .send-invite-button:hover {
+    background-color: #000000; /* Darker blue on hover */
+  }
+  .delete-project-button:hover {
+    background-color: #000000; /* Darker blue on hover */
+  }
+  .sort-by:hover {
+    background-color: #afafaf; /* Darker blue on hover */
+  }
   .send-invite-button {
     position: fixed;
     background-color: rgb(35, 112, 148); /* Blue button color */
@@ -40,7 +54,7 @@
     border: none; /* No border */
     width: 12%; 
     height: 8%; 
-    border-radius: 5px; /* Rounded corners */
+    border-radius: 15px;
     cursor: pointer; /* Cursor style on hover */
     right: 5%;
     align-items: center;
@@ -50,11 +64,15 @@
 
   .sort-by {
     position: fixed;
+    background-color: rgb(253, 253, 253);
     padding: .5% 1.5%;
     align-self: center;
-    top: 15%;
-    right: 48%;
+    right: 5%;
+    bottom: 40%;
     font-size: 100%;
+    width: 12%; 
+    height: 8%; 
+    border-radius: 15px;
   }
 
   .error-message {
@@ -69,7 +87,7 @@
     height: 8%; 
     color: #fff; /* White text color */
     border: none; /* No border */
-    border-radius: 5px; /* Rounded corners */
+    border-radius: 15px; /* Rounded corners */
     cursor: pointer; /* Cursor style on hover */
     right: 5%;
     bottom: 70%;
@@ -96,7 +114,7 @@
     width: 12%; 
     height: 8%; 
     border: none; /* No border */
-    border-radius: 5px; /* Rounded corners */
+    border-radius: 15px;
     cursor: pointer; /* Cursor style on hover */
     right: 5%;
     bottom: 50%;
@@ -106,19 +124,29 @@
 .delete-ticket {
   background-color: #bd0404; /* Blue button color */
   color: #fff; /* White text color */
-  border-radius: 5px; /* Rounded corners */
+  border-radius: 15px;
   width: 30%; 
   margin-bottom: 4%;
 }
 
-.ticket-button {
+.button-container {
   position: fixed;
-  background-color: #311e50; /* Blue button color */
-  width: 12%; 
-  height: 8%; 
-  color: #fff; /* White text color */
+  top: 15%; /* Adjust as needed */
+  left: 40%; /* Adjust as needed */
+  width: auto; /* Adjust the width of the container */
+  height: auto;
+}
+.ticket-button {
+  position: relative;
+  background-color: #371c61; /* Blue button color */
+  width: 125%; 
+  height: auto;
+  top: 100%;
+  left: center;
+  margin-bottom: 10px;
+  color: rgb(133, 219, 236); /* White text color */
   border: none; /* No border */
-  border-radius: 5px; /* Rounded corners */
+  border-radius: 20px; /* Rounded corners */
   cursor: pointer; /* Cursor style on hover */
-  font-size: 100%;
+  font-size: 200%;
 }

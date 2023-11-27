@@ -539,6 +539,7 @@ const MyProjects = () => {
       ) : tickets.length === 0 ? (
         <p>No tickets to display for this project.</p>
       ) : (
+        <div class="button-container">
         <ul>
           {tickets.map((ticket) => (
             <li key={ticket.Ticket_ID}>
@@ -548,6 +549,7 @@ const MyProjects = () => {
             </li>
           ))}
         </ul>
+        </div>
       )}
       <Popup open={selectedTicket !== null} onClose={() => setSelectedTicket(null)}>
         {selectedTicket && (
