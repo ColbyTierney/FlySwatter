@@ -539,7 +539,7 @@ const MyProjects = () => {
       ) : tickets.length === 0 ? (
         <p>No tickets to display for this project.</p>
       ) : (
-        <div class="button-container">
+        <div class="button-container2">
         <ul>
           {tickets.map((ticket) => (
             <li key={ticket.Ticket_ID}>
