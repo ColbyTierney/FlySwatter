@@ -8,36 +8,13 @@ const About = () => {
             <Sidebar />
             <h1>About Us</h1>
 
-            <div className="image-container">
-                <div className="image">
-                    <img src="/LiterallyMe.jpg" alt="Photo 1" />
-                    <h3 className="image-header">
-                        Schizophrenic
-                        <p className="image-text">Cogito Ergo Sum</p>
-                    </h3>
-                </div>
-                <div className="image">
-                    <img src="/Colby.jpg" alt="Photo 2" />
-                    <h3 className="image-header">
-                        Average Comp Sci Enjoyer
-                        <p className="image-text">Also Doctor Who fanatic</p>
-                    </h3>
-                </div>
-                <div className="image">
-                    <img src="/Kaylee.jpg" alt="Photo 3" />
-                    <h3 className="image-header">
-                        Masters in CS
-                        <p className="image-text">Does not know how to replace <br/> smoke alarm batteries</p>
-                    </h3>
-                </div>
-                <div className="image">
-                    <img src="/Leo.jpg" alt="Photo 4" />
-                    <h3 className="image-header">
-                        ???
-                        <p className="image-text">Brazilians can double jump</p>
-                    </h3>
-                </div>
-            </div>
+            <p>
+                Fly Swatter is dedicated to helping our users keep track and manage bugs and other issues in their code.
+                <br/>
+                Although It's primary use is for  tracking bugs, it can also be used to organize the implementation of new features
+                <br/>
+                onto the user's project, by keeping track of what needs to be implemented sorted by priority.
+            </p>
         </div>
     )
 }
